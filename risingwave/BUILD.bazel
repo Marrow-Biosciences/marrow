@@ -1,0 +1,10 @@
+load("@rules_rust//rust:defs.bzl", "rust_binary", "rust_library")
+
+exports_files(["Cargo.lock", "Cargo.toml"])
+
+rust_library(
+  name = "tonic_build_prod",
+  srcs = ["tonic_build_prod.rs"],
+  deps = ["@crates//:tonic-build"],
+  visibility = ["//visibility:public"],
+)

@@ -1,0 +1,1 @@
+exports_files(["risingwave_common.patch", "risingwave_object_store.patch", "risingwave_pb.patch", "rules_rust.patch"])

@@ -1,0 +1,5 @@
+--- cargo/cargo_toml_variable_extractor/main.rs
++++ cargo/cargo_toml_variable_extractor/main.rs
+@@ -237,1 +237,1 @@
+-            panic!("Can't inherit a {key} which was missing from the workspace")
++            None

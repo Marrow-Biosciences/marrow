@@ -1,0 +1,11 @@
+--- src/row/mod.rs
++++ src/row/mod.rs
+@@ -314,1 +314,1 @@
+-            self.as_ref().len()
++            self.len()
+
+--- src/row/mod.rs
++++ src/row/mod.rs
+@@ -319,1 +319,1 @@
+-            self.as_ref().iter().map(ToDatumRef::to_datum_ref)
++            AsRef::<[D]>::as_ref(self).iter().map(ToDatumRef::to_datum_ref)

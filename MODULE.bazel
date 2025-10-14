@@ -1,0 +1,73 @@
+module(name = "risingwave_native_udf", version = "0.0.0")
+bazel_dep(name = "rules_rust", version = "0.66.0")
+single_version_override(module_name = "rules_rust", patches = ["//patches:rules_rust.patch"])
+bazel_dep(name = "protobuf", version = "32.1")
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+http_archive(
+  name = "risingwave",
+  urls = ["https://github.com/risingwavelabs/risingwave/archive/refs/tags/v2.6.0.tar.gz"],
+  strip_prefix = "risingwave-2.6.0",
+  integrity = "sha256-nDJL7qiy+SgiTb1bKZySd9uzpPQhXLe0cOHZDb8Djy4=",
+  build_file_content = """exports_files(glob(["proto/**/*.proto"]))""",
+)
+rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
+rust.toolchain(edition = "2024", versions = ["nightly/2025-06-25"])
+use_repo(rust, "rust_toolchains")
+register_toolchains("@rust_toolchains//:all")
+rust_host_tools = use_extension("@rules_rust//rust:extensions.bzl", "rust_host_tools")
+rust_host_tools.host_tools(name = "rust_host_tools_nightly", edition = "2024", version = "nightly")
+use_repo(rust_host_tools, "rust_host_tools_nightly")
+crate = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
+inject_repo(crate, "protobuf", "risingwave", "risingwave_native_udf")
+crate.from_cargo(name = "crates_risingwave", cargo_lockfile = "//risingwave:Cargo.lock", manifests = ["//risingwave:Cargo.toml"], host_tools = "@rust_host_tools_nightly")
+crate.annotation(crate = "otlp-embedded", repositories = ["crates_risingwave"], build_script_tools = ["@protobuf//:protoc"], build_script_env = {"PROTOC": "$(execpath @protobuf//:protoc)"})
+crate.annotation(crate = "pulsar", repositories = ["crates_risingwave"], build_script_tools = ["@protobuf//:protoc"], build_script_env = {"PROTOC": "$(execpath @protobuf//:protoc)"})
+crate.annotation(crate = "risingwave_common", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_common.patch"])
+crate.annotation(crate = "risingwave_connector_codec", repositories = ["crates_risingwave"], gen_build_script = "off")  # Build script is only for testing purpose
+crate.annotation(crate = "risingwave_object_store", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_object_store.patch"])
+crate.annotation(
+  crate = "risingwave_pb",
+  repositories = ["crates_risingwave"],
+  build_script_deps = ["@risingwave_native_udf//risingwave:tonic_build_prod"],
+  build_script_link_deps = ["@risingwave_native_udf//risingwave:tonic_build_prod"],
+  build_script_tools = ["@protobuf//:protoc"],
+  build_script_env = {
+    "PROTOC": "$(execpath @protobuf//:protoc)",
+    "PROTOF": "$(execpath @risingwave//:proto/backup_service.proto)",
+  },
+  build_script_data = [
+    "@risingwave//:proto/backup_service.proto",
+    "@risingwave//:proto/batch_plan.proto",
+    "@risingwave//:proto/catalog.proto",
+    "@risingwave//:proto/cloud_service.proto",
+    "@risingwave//:proto/common.proto",
+    "@risingwave//:proto/compactor.proto",
+    "@risingwave//:proto/compute.proto",
+    "@risingwave//:proto/connector_service.proto",
+    "@risingwave//:proto/data.proto",
+    "@risingwave//:proto/ddl_service.proto",
+    "@risingwave//:proto/expr.proto",
+    "@risingwave//:proto/health.proto",
+    "@risingwave//:proto/hummock.proto",
+    "@risingwave//:proto/iceberg_compaction.proto",
+    "@risingwave//:proto/java_binding.proto",
+    "@risingwave//:proto/meta.proto",
+    "@risingwave//:proto/monitor_service.proto",
+    "@risingwave//:proto/plan_common.proto",
+    "@risingwave//:proto/source.proto",
+    "@risingwave//:proto/stream_plan.proto",
+    "@risingwave//:proto/stream_service.proto",
+    "@risingwave//:proto/task_service.proto",
+    "@risingwave//:proto/telemetry.proto",
+    "@risingwave//:proto/user.proto",
+    "@risingwave//:proto/serverless_backfill_controller.proto",
+    "@risingwave//:proto/secret.proto",
+    "@risingwave//:proto/frontend_service.proto",
+  ],
+  patches = ["//patches:risingwave_pb.patch"],
+)
+crate.spec(package = "tonic-build", version = "0.12.3", features = ["prost"])  # Same version as madsim-tonic
+crate.spec(package = "tracing", version = "0.1.41")
+crate.spec(package = "tracing-subscriber", version = "0.3.20", features = ["fmt"])
+crate.from_specs()
+use_repo(crate, "crates", "crates_risingwave")
