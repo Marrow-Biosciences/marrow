@@ -1,5 +1,11 @@
---- src/object/error.rs
-+++ src/object/error.rs
-@@ -26,1 +26,1 @@
--#[derive(Error, thiserror_ext::ReportDebug, thiserror_ext::Box, thiserror_ext::Construct)]
-+#[derive(Error, thiserror_ext::ReportDebug, thiserror_ext::Box, thiserror_ext::Construct)]
+--- src/object/s3.rs
++++ src/object/s3.rs
+@@ -879,1 +879,1 @@
+-                        Some(LifecycleRuleFilter::Prefix(prefix))
++                        Some(LifecycleRuleFilter { prefix: Some(prefix), .. })
+
+--- src/object/s3.rs
++++ src/object/s3.rs
+@@ -906,1 +906,1 @@
+-                .filter(LifecycleRuleFilter::Prefix(String::new()))
++                .filter(LifecycleRuleFilter::builder().build())

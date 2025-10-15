@@ -3,9 +3,10 @@ name = "risingwave"
 edition = "2024"
 [dependencies]
 risingwave_cmd_all = { git = "https://github.com/risingwavelabs/risingwave.git", tag = "v2.6.0" }
-risingwave_object_store = { git = "https://github.com/risingwavelabs/risingwave.git", tag = "v2.6.0" }
 [patch.crates-io]
 # https://github.com/risingwavelabs/risingwave/blob/f07678212a8f5ffeaab0453db4b321720cadff42/Cargo.toml#L395
 faiss = { git = "https://github.com/risingwavelabs/faiss-rs.git", rev = "f6f0acb" }
 # Switch from gcp-bigquery-client 8.18.2 to 0.19.0 to avoid inconsistent hyper-rustls versions against yup-oauth2 dependency
 gcp-bigquery-client = { git = "https://github.com/lquerel/gcp-bigquery-client.git", rev = "e545d6bb811b02ed8fce7633956109efec1b9181" }
+[patch."https://github.com/BugenZhao/thiserror.git"]
+thiserror = "2.0.17"

@@ -1157,9 +1157,9 @@ dependencies = [
 
 [[package]]
 name = "aws-lc-rs"
-version = "1.14.0"
+version = "1.14.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "94b8ff6c09cd57b16da53641caa860168b88c172a5ee163b0288d3d6eea12786"
+checksum = "879b6c89592deb404ba4dc0ae6b58ffd1795c78991cbb5b8bc441c48a070440d"
 dependencies = [
  "aws-lc-sys",
  "zeroize",
@@ -1167,9 +1167,9 @@ dependencies = [
 
 [[package]]
 name = "aws-lc-sys"
-version = "0.31.0"
+version = "0.32.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0e44d16778acaf6a9ec9899b92cebd65580b83f685446bf2e1f5d3d732f99dcd"
+checksum = "107a4e9d9cab9963e04e84bb8dee0e25f2a987f9a8bad5ed054abd439caa8f8c"
 dependencies = [
  "bindgen",
  "cc",
@@ -9060,7 +9060,7 @@ dependencies = [
  "serde",
  "serde_json",
  "socket2 0.5.10",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "thiserror-ext",
  "tokio-openssl",
  "tracing",
@@ -10398,7 +10398,6 @@ name = "risingwave"
 version = "0.0.0"
 dependencies = [
  "risingwave_cmd_all",
- "risingwave_object_store",
  "tonic-build",
  "tracing",
  "tracing-subscriber",
@@ -10432,7 +10431,7 @@ dependencies = [
  "risingwave_pb",
  "serde",
  "serde_json",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "twox-hash 2.1.2",
 ]
 
@@ -10472,7 +10471,7 @@ dependencies = [
  "risingwave_storage",
  "scopeguard",
  "serde_json",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "thiserror-ext",
  "tokio-postgres",
  "tokio-stream 0.1.15",
@@ -10673,7 +10672,7 @@ dependencies = [
  "strum 0.27.2",
  "strum_macros 0.27.2",
  "sysinfo",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "thiserror-ext",
  "tinyvec",
  "tokio-retry",
@@ -10715,7 +10714,7 @@ dependencies = [
  "madsim-tokio",
  "parking_lot 0.12.5",
  "risingwave_common",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "thiserror-ext",
  "tikv-jemalloc-ctl",
  "tracing",
@@ -10805,7 +10804,7 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "thiserror-ext",
  "tracing",
  "url",
@@ -10828,7 +10827,7 @@ dependencies = [
  "risingwave_pb",
  "risingwave_rpc_client",
  "serde",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "thiserror-ext",
  "tower 0.5.2",
  "tower-http",
@@ -11013,7 +11012,7 @@ dependencies = [
  "strum 0.27.2",
  "strum_macros 0.27.2",
  "tempfile",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "thiserror-ext",
  "tiberius",
  "time",
@@ -11055,7 +11054,7 @@ dependencies = [
  "risingwave_pb",
  "rust_decimal",
  "serde_json",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "thiserror-ext",
  "time",
  "tracing",
@@ -11116,7 +11115,7 @@ dependencies = [
  "madsim-tokio",
  "parking_lot 0.12.5",
  "risingwave_common",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "tracing",
  "workspace-hack",
 ]
@@ -11133,7 +11132,7 @@ dependencies = [
  "madsim-tonic",
  "serde",
  "serde-error",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "thiserror-ext",
  "tracing",
 ]
@@ -11170,7 +11169,7 @@ dependencies = [
  "risingwave_pb",
  "smallvec",
  "static_assertions",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "thiserror-ext",
  "tracing",
  "workspace-hack",
@@ -11221,7 +11220,7 @@ dependencies = [
  "sha2",
  "smallvec",
  "sql-json-path",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "thiserror-ext",
  "tracing",
  "workspace-hack",
@@ -11315,7 +11314,7 @@ dependencies = [
  "speedate",
  "static_assertions",
  "tempfile",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "thiserror-ext",
  "tokio-postgres",
  "tokio-stream 0.1.15",
@@ -11372,7 +11371,7 @@ dependencies = [
  "risingwave_common",
  "risingwave_hummock_sdk",
  "risingwave_pb",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "tracing",
 ]
 
@@ -11394,7 +11393,7 @@ dependencies = [
  "prost 0.13.5",
  "risingwave_common",
  "risingwave_pb",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "thiserror-ext",
  "tracing",
 ]
@@ -11411,7 +11410,7 @@ dependencies = [
  "risingwave_telemetry_event",
  "serde",
  "strum 0.27.2",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "thiserror-ext",
  "tracing",
  "typify",
@@ -11480,7 +11479,7 @@ dependencies = [
  "serde_json",
  "strum 0.27.2",
  "sync-point",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "thiserror-ext",
  "tokio-retry",
  "tokio-stream 0.1.15",
@@ -11623,7 +11622,7 @@ dependencies = [
  "reqwest 0.12.24",
  "risingwave_common",
  "spin 0.10.0",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "thiserror-ext",
  "tokio-retry",
  "tracing",
@@ -11646,7 +11645,7 @@ dependencies = [
  "risingwave_error",
  "serde",
  "strum 0.27.2",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "walkdir",
  "workspace-hack",
 ]
@@ -11674,7 +11673,7 @@ dependencies = [
  "risingwave_pb",
  "rw_futures_util",
  "static_assertions",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "thiserror-ext",
  "tokio-retry",
  "tokio-stream 0.1.15",
@@ -11723,7 +11722,7 @@ source = "git+https://github.com/risingwavelabs/risingwave.git?tag=v2.6.0#f07678
 dependencies = [
  "itertools 0.14.0",
  "task-local",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "tracing",
  "tracing-subscriber",
  "winnow",
@@ -11791,7 +11790,7 @@ dependencies = [
  "spin 0.10.0",
  "sync-point",
  "tempfile",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "thiserror-ext",
  "tokio-retry",
  "tracing",
@@ -11855,7 +11854,7 @@ dependencies = [
  "smallvec",
  "static_assertions",
  "strum_macros 0.27.2",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
  "thiserror-ext",
  "tokio-metrics",
  "tokio-retry",
@@ -13754,7 +13753,7 @@ dependencies = [
  "futures-util",
  "madsim-tokio",
  "spin 0.10.0",
- "thiserror 2.0.12",
+ "thiserror 2.0.17",
 ]
 
 [[package]]
@@ -13899,14 +13898,6 @@ dependencies = [
 
 [[package]]
 name = "thiserror"
-version = "2.0.12"
-source = "git+https://github.com/BugenZhao/thiserror.git?tag=bz-provide-3#22af4a5865e9d796b68f3a144be15a29b86f2ef3"
-dependencies = [
- "thiserror-impl 2.0.12",
-]
-
-[[package]]
-name = "thiserror"
 version = "2.0.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f63587ca0f12b72a0600bcba1d40081f830876000bb46dd2337a3051618f4fc8"
@@ -13941,16 +13932,6 @@ name = "thiserror-impl"
 version = "1.0.69"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4fee6c4efc90059e10f81e6d42c60a18f76588c3d74cb83a0b242a2b6c7504c1"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.106",
-]
-
-[[package]]
-name = "thiserror-impl"
-version = "2.0.12"
-source = "git+https://github.com/BugenZhao/thiserror.git?tag=bz-provide-3#22af4a5865e9d796b68f3a144be15a29b86f2ef3"
 dependencies = [
  "proc-macro2",
  "quote",
