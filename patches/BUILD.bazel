@@ -1,1 +1,11 @@
-exports_files(["risingwave_common.patch", "risingwave_object_store.patch", "risingwave_pb.patch", "rules_rust.patch"])
+exports_files([
+  "gcp_bigquery_client.patch",
+  "risingwave_common.patch",
+  "risingwave_connector.patch",
+  "risingwave_frontend.patch",
+  "risingwave_meta.patch",
+  "risingwave_meta_model.patch",
+  "risingwave_object_store.patch",
+  "risingwave_pb.patch",
+  "rules_rust.patch",
+])

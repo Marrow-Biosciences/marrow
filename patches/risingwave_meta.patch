@@ -1,0 +1,11 @@
+--- src/error.rs
++++ src/error.rs
+@@ -71,1 +71,1 @@
+-    #[provide(PostgresErrorCode => PostgresErrorCode::UndefinedObject)]
++    //#[extra_provide(PostgresErrorCode => PostgresErrorCode::UndefinedObject)]
+
+--- src/error.rs
++++ src/error.rs
+@@ -79,1 +79,1 @@
+-    #[provide(PostgresErrorCode => PostgresErrorCode::DuplicateObject)]
++    //#[extra_provide(PostgresErrorCode => PostgresErrorCode::DuplicateObject)]

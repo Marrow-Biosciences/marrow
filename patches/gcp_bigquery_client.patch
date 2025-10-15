@@ -1,0 +1,5 @@
+--- src/lib.rs
++++ src/lib.rs
+@@ -28,1 +28,1 @@
+-use yup_oauth2::ServiceAccountKey;
++pub use yup_oauth2::ServiceAccountKey;

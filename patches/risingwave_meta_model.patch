@@ -1,0 +1,41 @@
+--- src/lib.rs
++++ src/lib.rs
+@@ -199,5 +199,5 @@
+-        impl sea_orm::sea_query::Nullable for $struct_name {
+-            fn null() -> Value {
+-                Value::Bytes(None)
+-            }
+-        }
++//        impl sea_orm::sea_query::Nullable for $struct_name {
++//            fn null() -> Value {
++//                Value::Bytes(None)
++//            }
++//        }
+
+--- src/lib.rs
++++ src/lib.rs
+@@ -282,5 +282,5 @@
+-        impl sea_orm::sea_query::Nullable for $struct_name {
+-            fn null() -> Value {
+-                Value::Bytes(None)
+-            }
+-        }
++//        impl sea_orm::sea_query::Nullable for $struct_name {
++//            fn null() -> Value {
++//                Value::Bytes(None)
++//            }
++//        }
+
+--- src/lib.rs
++++ src/lib.rs
+@@ -329,5 +329,5 @@
+-        impl sea_orm::sea_query::Nullable for $struct_name {
+-            fn null() -> Value {
+-                Value::Bytes(None)
+-            }
+-        }
++//        impl sea_orm::sea_query::Nullable for $struct_name {
++//            fn null() -> Value {
++//                Value::Bytes(None)
++//            }
++//        }

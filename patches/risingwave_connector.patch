@@ -1,0 +1,5 @@
+--- src/sink/big_query.rs
++++ src/sink/big_query.rs
+@@ -60,1 +60,1 @@
+-use yup_oauth2::ServiceAccountKey;
++use gcp_bigquery_client::ServiceAccountKey;
