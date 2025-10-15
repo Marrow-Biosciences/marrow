@@ -1,4 +1,4 @@
-module(name = "risingwave_native_udf", version = "0.0.0")
+module(name = "marrow", version = "0.0.0")
 bazel_dep(name = "rules_rust", version = "0.66.0")
 single_version_override(module_name = "rules_rust", patches = ["//patches:rules_rust.patch"])
 bazel_dep(name = "protobuf", version = "32.1")
@@ -18,7 +18,7 @@ rust_host_tools = use_extension("@rules_rust//rust:extensions.bzl", "rust_host_t
 rust_host_tools.host_tools(name = "rust_host_tools_nightly", edition = "2024", version = "nightly")
 use_repo(rust_host_tools, "rust_host_tools_nightly")
 crate = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
-inject_repo(crate, "protobuf", "risingwave", "risingwave_native_udf")
+inject_repo(crate, "marrow", "protobuf", "risingwave")
 crate.from_cargo(name = "crates_risingwave", cargo_lockfile = "//risingwave:Cargo.lock", manifests = ["//risingwave:Cargo.toml"], host_tools = "@rust_host_tools_nightly")
 crate.annotation(crate = "gcp-bigquery-client", repositories = ["crates_risingwave"], patches = ["//patches:gcp_bigquery_client.patch"])
 crate.annotation(crate = "otlp-embedded", repositories = ["crates_risingwave"], build_script_tools = ["@protobuf//:protoc"], build_script_env = {"PROTOC": "$(execpath @protobuf//:protoc)"})
@@ -33,8 +33,8 @@ crate.annotation(crate = "risingwave_object_store", repositories = ["crates_risi
 crate.annotation(
   crate = "risingwave_pb",
   repositories = ["crates_risingwave"],
-  build_script_deps = ["@risingwave_native_udf//risingwave:tonic_build_prod"],
-  build_script_link_deps = ["@risingwave_native_udf//risingwave:tonic_build_prod"],
+  build_script_deps = ["@marrow//risingwave:tonic_build_prod"],
+  build_script_link_deps = ["@marrow//risingwave:tonic_build_prod"],
   build_script_tools = ["@protobuf//:protoc"],
   build_script_env = {
     "PROTOC": "$(execpath @protobuf//:protoc)",
