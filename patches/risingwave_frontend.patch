@@ -9,3 +9,17 @@
 @@ -114,1 +114,1 @@
 -    #[provide(PostgresErrorCode => PostgresErrorCode::DuplicateObject)]
 +    //#[extra_provide(PostgresErrorCode => PostgresErrorCode::DuplicateObject)]
+
+--- src/expr/pure.rs
++++ src/expr/pure.rs
+@@ -284,1 +284,2 @@
+-            | Type::CompositeCast =>
++            | Type::CompositeCast
++            | Type::AddOne =>
+
+--- src/optimizer/plan_expr_visitor/strong.rs
++++ src/optimizer/plan_expr_visitor/strong.rs
+@@ -119,1 +119,2 @@
+-            | ExprType::Least => self.any_null(func_call),
++            | ExprType::Least
++            | ExprType::AddOne => self.any_null(func_call),

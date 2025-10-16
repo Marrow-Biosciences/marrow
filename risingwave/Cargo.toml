@@ -2,7 +2,18 @@
 name = "risingwave"
 edition = "2024"
 [dependencies]
+anyhow = "1.0.100"
+linkme = "0.3.35"
+risingwave_common = { git = "https://github.com/risingwavelabs/risingwave.git", tag = "v2.6.0" }
 risingwave_cmd_all = { git = "https://github.com/risingwavelabs/risingwave.git", tag = "v2.6.0" }
+risingwave_pb = { git = "https://github.com/risingwavelabs/risingwave.git", tag = "v2.6.0" }
+risingwave_expr = { git = "https://github.com/risingwavelabs/risingwave.git", tag = "v2.6.0" }
+# Using crate.annotation in MODULE.bazel to toggle on sqlx-sqlite for sea-orm-migration does not impact its dependency resolution
+# See more at https://github.com/bazelbuild/rules_rust/issues/3626
+# So the sea-schema as dependency of sea-orm-migration does not have its sqlx-sqlite feature enabled
+# Turn it on here since features are additive across the lockfile to influence the flag to be on
+sea-schema = { version = "0.16.2", features = ["sqlx-sqlite"] }
+tonic-build = { version = "0.12.3", features = ["prost"] }
 [patch.crates-io]
 # https://github.com/risingwavelabs/risingwave/blob/f07678212a8f5ffeaab0453db4b321720cadff42/Cargo.toml#L395
 faiss = { git = "https://github.com/risingwavelabs/faiss-rs.git", rev = "f6f0acb" }

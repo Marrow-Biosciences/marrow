@@ -1,5 +1,6 @@
 exports_files([
   "gcp_bigquery_client.patch",
+  "risingwave_cmd_all.patch",
   "risingwave_common.patch",
   "risingwave_connector.patch",
   "risingwave_frontend.patch",
@@ -7,5 +8,6 @@ exports_files([
   "risingwave_meta_model.patch",
   "risingwave_object_store.patch",
   "risingwave_pb.patch",
+  "risingwave_proto_expr.patch",
   "rules_rust.patch",
 ])

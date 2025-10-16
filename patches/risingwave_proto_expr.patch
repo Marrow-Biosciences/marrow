@@ -1,0 +1,6 @@
+--- proto/expr.proto
++++ proto/expr.proto
+@@ -321,1 +321,2 @@
+-    COMPOSITE_CAST = 800;
++    COMPOSITE_CAST = 800;
++    ADD_ONE = 900;

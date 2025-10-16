@@ -5,6 +5,6 @@ exports_files(["Cargo.lock", "Cargo.toml"])
 rust_library(
   name = "tonic_build_prod",
   srcs = ["tonic_build_prod.rs"],
-  deps = ["@crates//:tonic-build"],
+  deps = ["@crates_risingwave//:tonic-build"],
   visibility = ["//visibility:public"],
 )

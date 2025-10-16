@@ -1,0 +1,23 @@
+load("@rules_rust//rust:defs.bzl", "rust_library", "rust_test")
+
+rust_library(
+  name = "add_one",
+  srcs = ["add_one.rs"],
+  deps = [
+    "@crates_risingwave//:anyhow",
+    "@crates_risingwave//:linkme",
+    "@crates_risingwave//:risingwave_common",
+    "@crates_risingwave//:risingwave_expr",
+    "@crates_risingwave//:risingwave_pb",
+  ],
+  visibility = ["//visibility:public"],
+)
+
+rust_test(
+  name = "add_one_test",
+  crate = ":add_one",
+  deps = [
+    "@crates_test//:rstest",
+    "@crates_test//:similar-asserts",
+  ],
+)

@@ -1,0 +1,5 @@
+--- src/bin/risingwave.rs
++++ src/bin/risingwave.rs
+@@ -39,1 +39,1 @@
+-const BINARY_NAME: &str = "risingwave";
++const BINARY_NAME: &str = "risingwave__bin";
