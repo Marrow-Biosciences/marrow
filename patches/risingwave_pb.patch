@@ -3,28 +3,16 @@
 @@ -17,1 +17,1 @@
 -const DEBUG: bool = false;
 +const DEBUG: bool = true;
-
---- build.rs
-+++ build.rs
 @@ -28,1 +28,2 @@
 -    let proto_dir = "../../proto";
 +    let proto_file = std::env::var("PROTOF")?;
 +    let proto_dir = std::path::Path::new(&proto_file).parent().unwrap().to_str().unwrap();
-
---- build.rs
-+++ build.rs
 @@ -99,1 +99,1 @@
 -    let tonic_config = tonic_build::configure()
 +    let tonic_config = tonic_build_prod::configure()
-
---- build.rs
-+++ build.rs
 @@ -294,1 +294,1 @@
 -    let mut prost_config = prost_build::Config::new();
 +    let mut prost_config = tonic_build_prod::Config::new();
-
---- build.rs
-+++ build.rs
 @@ -330,1 +330,1 @@
 -    compare_and_copy(&out_dir, &PathBuf::from("./src")).unwrap_or_else(|_| {
 +    Ok(()).unwrap_or_else(|_: ()| {
@@ -36,401 +24,251 @@
 -pub mod catalog;
 +//#[cfg_attr(madsim, path = "sim/catalog.rs")]
 +pub mod catalog { include!(concat!(env!("OUT_DIR"), "/catalog.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -44,2 +44,2 @@
 -#[cfg_attr(madsim, path = "sim/common.rs")]
 -pub mod common;
 +//#[cfg_attr(madsim, path = "sim/common.rs")]
 +pub mod common { include!(concat!(env!("OUT_DIR"), "/common.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -47,2 +47,2 @@
 -#[cfg_attr(madsim, path = "sim/compute.rs")]
 -pub mod compute;
 +//#[cfg_attr(madsim, path = "sim/compute.rs")]
 +pub mod compute { include!(concat!(env!("OUT_DIR"), "/compute.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -50,2 +50,2 @@
 -#[cfg_attr(madsim, path = "sim/cloud_service.rs")]
 -pub mod cloud_service;
 +//#[cfg_attr(madsim, path = "sim/cloud_service.rs")]
 +pub mod cloud_service { include!(concat!(env!("OUT_DIR"), "/cloud_service.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -53,2 +53,2 @@
 -#[cfg_attr(madsim, path = "sim/data.rs")]
 -pub mod data;
 +//#[cfg_attr(madsim, path = "sim/data.rs")]
 +pub mod data { include!(concat!(env!("OUT_DIR"), "/data.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -56,2 +56,2 @@
 -#[cfg_attr(madsim, path = "sim/ddl_service.rs")]
 -pub mod ddl_service;
 +//#[cfg_attr(madsim, path = "sim/ddl_service.rs")]
 +pub mod ddl_service { include!(concat!(env!("OUT_DIR"), "/ddl_service.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -59,2 +59,2 @@
 -#[cfg_attr(madsim, path = "sim/expr.rs")]
 -pub mod expr;
 +//#[cfg_attr(madsim, path = "sim/expr.rs")]
 +pub mod expr { include!(concat!(env!("OUT_DIR"), "/expr.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -62,2 +62,2 @@
 -#[cfg_attr(madsim, path = "sim/meta.rs")]
 -pub mod meta;
 +//#[cfg_attr(madsim, path = "sim/meta.rs")]
 +pub mod meta { include!(concat!(env!("OUT_DIR"), "/meta.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -65,2 +65,2 @@
 -#[cfg_attr(madsim, path = "sim/plan_common.rs")]
 -pub mod plan_common;
 +//#[cfg_attr(madsim, path = "sim/plan_common.rs")]
 +pub mod plan_common { include!(concat!(env!("OUT_DIR"), "/plan_common.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -68,2 +68,2 @@
 -#[cfg_attr(madsim, path = "sim/batch_plan.rs")]
 -pub mod batch_plan;
 +//#[cfg_attr(madsim, path = "sim/batch_plan.rs")]
 +pub mod batch_plan { include!(concat!(env!("OUT_DIR"), "/batch_plan.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -71,2 +71,2 @@
 -#[cfg_attr(madsim, path = "sim/task_service.rs")]
 -pub mod task_service;
 +//#[cfg_attr(madsim, path = "sim/task_service.rs")]
 +pub mod task_service { include!(concat!(env!("OUT_DIR"), "/task_service.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -74,2 +74,2 @@
 -#[cfg_attr(madsim, path = "sim/connector_service.rs")]
 -pub mod connector_service;
 +//#[cfg_attr(madsim, path = "sim/connector_service.rs")]
 +pub mod connector_service { include!(concat!(env!("OUT_DIR"), "/connector_service.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -77,2 +77,2 @@
 -#[cfg_attr(madsim, path = "sim/stream_plan.rs")]
 -pub mod stream_plan;
 +//#[cfg_attr(madsim, path = "sim/stream_plan.rs")]
 +pub mod stream_plan { include!(concat!(env!("OUT_DIR"), "/stream_plan.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -80,2 +80,2 @@
 -#[cfg_attr(madsim, path = "sim/stream_service.rs")]
 -pub mod stream_service;
 +//#[cfg_attr(madsim, path = "sim/stream_service.rs")]
 +pub mod stream_service { include!(concat!(env!("OUT_DIR"), "/stream_service.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -83,2 +83,2 @@
 -#[cfg_attr(madsim, path = "sim/hummock.rs")]
 -pub mod hummock;
 +//#[cfg_attr(madsim, path = "sim/hummock.rs")]
 +pub mod hummock { include!(concat!(env!("OUT_DIR"), "/hummock.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -86,2 +86,2 @@
 -#[cfg_attr(madsim, path = "sim/compactor.rs")]
 -pub mod compactor;
 +//#[cfg_attr(madsim, path = "sim/compactor.rs")]
 +pub mod compactor { include!(concat!(env!("OUT_DIR"), "/compactor.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -89,2 +89,2 @@
 -#[cfg_attr(madsim, path = "sim/user.rs")]
 -pub mod user;
 +//#[cfg_attr(madsim, path = "sim/user.rs")]
 +pub mod user { include!(concat!(env!("OUT_DIR"), "/user.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -92,2 +92,2 @@
 -#[cfg_attr(madsim, path = "sim/source.rs")]
 -pub mod source;
 +//#[cfg_attr(madsim, path = "sim/source.rs")]
 +pub mod source { include!(concat!(env!("OUT_DIR"), "/source.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -95,2 +95,2 @@
 -#[cfg_attr(madsim, path = "sim/monitor_service.rs")]
 -pub mod monitor_service;
 +//#[cfg_attr(madsim, path = "sim/monitor_service.rs")]
 +pub mod monitor_service { include!(concat!(env!("OUT_DIR"), "/monitor_service.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -98,2 +98,2 @@
 -#[cfg_attr(madsim, path = "sim/backup_service.rs")]
 -pub mod backup_service;
 +//#[cfg_attr(madsim, path = "sim/backup_service.rs")]
 +pub mod backup_service { include!(concat!(env!("OUT_DIR"), "/backup_service.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -101,2 +101,2 @@
 -#[cfg_attr(madsim, path = "sim/serverless_backfill_controller.rs")]
 -pub mod serverless_backfill_controller;
 +//#[cfg_attr(madsim, path = "sim/serverless_backfill_controller.rs")]
 +pub mod serverless_backfill_controller { include!(concat!(env!("OUT_DIR"), "/serverless_backfill_controller.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -104,2 +104,2 @@
 -#[cfg_attr(madsim, path = "sim/frontend_service.rs")]
 -pub mod frontend_service;
 +//#[cfg_attr(madsim, path = "sim/frontend_service.rs")]
 +pub mod frontend_service { include!(concat!(env!("OUT_DIR"), "/frontend_service.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -107,2 +107,2 @@
 -#[cfg_attr(madsim, path = "sim/java_binding.rs")]
 -pub mod java_binding;
 +//#[cfg_attr(madsim, path = "sim/java_binding.rs")]
 +pub mod java_binding { include!(concat!(env!("OUT_DIR"), "/java_binding.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -110,2 +110,2 @@
 -#[cfg_attr(madsim, path = "sim/health.rs")]
 -pub mod health;
 +//#[cfg_attr(madsim, path = "sim/health.rs")]
 +pub mod health { include!(concat!(env!("OUT_DIR"), "/health.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -113,2 +113,2 @@
 -#[path = "sim/telemetry.rs"]
 -pub mod telemetry;
 +//#[path = "sim/telemetry.rs"]
 +pub mod telemetry { include!(concat!(env!("OUT_DIR"), "/telemetry.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -116,2 +116,2 @@
 -#[cfg_attr(madsim, path = "sim/iceberg_compaction.rs")]
 -pub mod iceberg_compaction;
 +//#[cfg_attr(madsim, path = "sim/iceberg_compaction.rs")]
 +pub mod iceberg_compaction { include!(concat!(env!("OUT_DIR"), "/iceberg_compaction.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -120,2 +120,2 @@
 -#[path = "sim/secret.rs"]
 -pub mod secret;
 +//#[path = "sim/secret.rs"]
 +pub mod secret { include!(concat!(env!("OUT_DIR"), "/secret.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -123,2 +123,2 @@
 -#[path = "connector_service.serde.rs"]
 -pub mod connector_service_serde;
 +//#[path = "connector_service.serde.rs"]
 +pub mod connector_service_serde { include!(concat!(env!("OUT_DIR"), "/connector_service.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -126,2 +126,2 @@
 -#[path = "catalog.serde.rs"]
 -pub mod catalog_serde;
 +//#[path = "catalog.serde.rs"]
 +pub mod catalog_serde { include!(concat!(env!("OUT_DIR"), "/catalog.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -129,2 +129,2 @@
 -#[path = "common.serde.rs"]
 -pub mod common_serde;
 +//#[path = "common.serde.rs"]
 +pub mod common_serde { include!(concat!(env!("OUT_DIR"), "/common.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -132,2 +132,2 @@
 -#[path = "compute.serde.rs"]
 -pub mod compute_serde;
 +//#[path = "compute.serde.rs"]
 +pub mod compute_serde { include!(concat!(env!("OUT_DIR"), "/compute.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -135,2 +135,2 @@
 -#[path = "cloud_service.serde.rs"]
 -pub mod cloud_service_serde;
 +//#[path = "cloud_service.serde.rs"]
 +pub mod cloud_service_serde { include!(concat!(env!("OUT_DIR"), "/cloud_service.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -138,2 +138,2 @@
 -#[path = "data.serde.rs"]
 -pub mod data_serde;
 +//#[path = "data.serde.rs"]
 +pub mod data_serde { include!(concat!(env!("OUT_DIR"), "/data.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -141,2 +141,2 @@
 -#[path = "ddl_service.serde.rs"]
 -pub mod ddl_service_serde;
 +//#[path = "ddl_service.serde.rs"]
 +pub mod ddl_service_serde { include!(concat!(env!("OUT_DIR"), "/ddl_service.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -144,2 +144,2 @@
 -#[path = "expr.serde.rs"]
 -pub mod expr_serde;
 +//#[path = "expr.serde.rs"]
 +pub mod expr_serde { include!(concat!(env!("OUT_DIR"), "/expr.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -147,2 +147,2 @@
 -#[path = "meta.serde.rs"]
 -pub mod meta_serde;
 +//#[path = "meta.serde.rs"]
 +pub mod meta_serde { include!(concat!(env!("OUT_DIR"), "/meta.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -150,2 +150,2 @@
 -#[path = "plan_common.serde.rs"]
 -pub mod plan_common_serde;
 +//#[path = "plan_common.serde.rs"]
 +pub mod plan_common_serde { include!(concat!(env!("OUT_DIR"), "/plan_common.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -153,2 +153,2 @@
 -#[path = "batch_plan.serde.rs"]
 -pub mod batch_plan_serde;
 +//#[path = "batch_plan.serde.rs"]
 +pub mod batch_plan_serde { include!(concat!(env!("OUT_DIR"), "/batch_plan.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -156,2 +156,2 @@
 -#[path = "task_service.serde.rs"]
 -pub mod task_service_serde;
 +//#[path = "task_service.serde.rs"]
 +pub mod task_service_serde { include!(concat!(env!("OUT_DIR"), "/task_service.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -159,2 +159,2 @@
 -#[path = "stream_plan.serde.rs"]
 -pub mod stream_plan_serde;
 +//#[path = "stream_plan.serde.rs"]
 +pub mod stream_plan_serde { include!(concat!(env!("OUT_DIR"), "/stream_plan.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -162,2 +162,2 @@
 -#[path = "stream_service.serde.rs"]
 -pub mod stream_service_serde;
 +//#[path = "stream_service.serde.rs"]
 +pub mod stream_service_serde { include!(concat!(env!("OUT_DIR"), "/stream_service.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -165,2 +165,2 @@
 -#[path = "hummock.serde.rs"]
 -pub mod hummock_serde;
 +//#[path = "hummock.serde.rs"]
 +pub mod hummock_serde { include!(concat!(env!("OUT_DIR"), "/hummock.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -168,2 +168,2 @@
 -#[path = "compactor.serde.rs"]
 -pub mod compactor_serde;
 +//#[path = "compactor.serde.rs"]
 +pub mod compactor_serde { include!(concat!(env!("OUT_DIR"), "/compactor.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -171,2 +171,2 @@
 -#[path = "user.serde.rs"]
 -pub mod user_serde;
 +//#[path = "user.serde.rs"]
 +pub mod user_serde { include!(concat!(env!("OUT_DIR"), "/user.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -174,2 +174,2 @@
 -#[path = "source.serde.rs"]
 -pub mod source_serde;
 +//#[path = "source.serde.rs"]
 +pub mod source_serde { include!(concat!(env!("OUT_DIR"), "/source.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -177,2 +177,2 @@
 -#[path = "monitor_service.serde.rs"]
 -pub mod monitor_service_serde;
 +//#[path = "monitor_service.serde.rs"]
 +pub mod monitor_service_serde { include!(concat!(env!("OUT_DIR"), "/monitor_service.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -180,2 +180,2 @@
 -#[path = "backup_service.serde.rs"]
 -pub mod backup_service_serde;
 +//#[path = "backup_service.serde.rs"]
 +pub mod backup_service_serde { include!(concat!(env!("OUT_DIR"), "/backup_service.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -183,2 +183,2 @@
 -#[path = "java_binding.serde.rs"]
 -pub mod java_binding_serde;
 +//#[path = "java_binding.serde.rs"]
 +pub mod java_binding_serde { include!(concat!(env!("OUT_DIR"), "/java_binding.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -186,2 +186,2 @@
 -#[path = "telemetry.serde.rs"]
 -pub mod telemetry_serde;
 +//#[path = "telemetry.serde.rs"]
 +pub mod telemetry_serde { include!(concat!(env!("OUT_DIR"), "/telemetry.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -190,2 +190,2 @@
 -#[path = "secret.serde.rs"]
 -pub mod secret_serde;
 +//#[path = "secret.serde.rs"]
 +pub mod secret_serde { include!(concat!(env!("OUT_DIR"), "/secret.serde.rs")); }
-
---- src/lib.rs
-+++ src/lib.rs
 @@ -193,2 +193,2 @@
 -#[path = "serverless_backfill_controller.serde.rs"]
 -pub mod serverless_backfill_controller_serde;

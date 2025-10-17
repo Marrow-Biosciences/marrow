@@ -11,9 +11,6 @@
 @@ -110,1 +110,1 @@
 -    #[provide(PostgresErrorCode => PostgresErrorCode::UndefinedObject)]
 +    //#[extra_provide(PostgresErrorCode => PostgresErrorCode::UndefinedObject)]
-
---- src/catalog/mod.rs
-+++ src/catalog/mod.rs
 @@ -114,1 +114,1 @@
 -    #[provide(PostgresErrorCode => PostgresErrorCode::DuplicateObject)]
 +    //#[extra_provide(PostgresErrorCode => PostgresErrorCode::DuplicateObject)]

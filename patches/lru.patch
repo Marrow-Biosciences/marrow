@@ -1,0 +1,7 @@
+--- src/lib.rs
++++ src/lib.rs
+@@ -219,2 +219,2 @@
+-            head: Box::into_raw(Box::new_in(LruEntry::new_sigil(), alloc.clone())),
+-            tail: Box::into_raw(Box::new_in(LruEntry::new_sigil(), alloc.clone())),
++            head: Box::into_raw_with_allocator(Box::<LruEntry<K, V>, A>::new_in(LruEntry::new_sigil(), alloc.clone())).0,
++            tail: Box::into_raw_with_allocator(Box::<LruEntry<K, V>, A>::new_in(LruEntry::new_sigil(), alloc.clone())).0,

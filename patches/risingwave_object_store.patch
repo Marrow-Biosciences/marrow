@@ -3,9 +3,6 @@
 @@ -879,1 +879,1 @@
 -                        Some(LifecycleRuleFilter::Prefix(prefix))
 +                        Some(LifecycleRuleFilter { prefix: Some(prefix), .. })
-
---- src/object/s3.rs
-+++ src/object/s3.rs
 @@ -906,1 +906,1 @@
 -                .filter(LifecycleRuleFilter::Prefix(String::new()))
 +                .filter(LifecycleRuleFilter::builder().build())

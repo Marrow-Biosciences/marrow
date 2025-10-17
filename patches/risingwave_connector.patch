@@ -1,5 +1,23 @@
+--- src/lib.rs
++++ src/lib.rs
+@@ -17,1 +17,1 @@
+-#![feature(array_chunks)]
++#![feature(iter_array_chunks)]
+
 --- src/sink/big_query.rs
 +++ src/sink/big_query.rs
 @@ -60,1 +60,1 @@
 -use yup_oauth2::ServiceAccountKey;
 +use gcp_bigquery_client::ServiceAccountKey;
+
+--- src/sink/encoder/proto.rs
++++ src/sink/encoder/proto.rs
+@@ -146,1 +146,1 @@
+-        let mut path = desc.path().array_chunks();
++        let mut path = desc.path().iter().copied().array_chunks();
+@@ -147,1 +147,1 @@
+-        let &[tag, idx] = path.next().unwrap();
++        let [tag, idx] = path.next().unwrap();
+@@ -150,1 +150,1 @@
+-        for &[tag, idx] in path {
++        for [tag, idx] in path {
