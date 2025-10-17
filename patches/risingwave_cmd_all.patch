@@ -3,3 +3,10 @@
 @@ -39,1 +39,1 @@
 -const BINARY_NAME: &str = "risingwave";
 +const BINARY_NAME: &str = "risingwave__bin";
+
+--- src/lib.rs
++++ src/lib.rs
+@@ -26,1 +26,2 @@
+-risingwave_expr_impl::enable!();
++risingwave_expr_impl::enable!();
++use add_one as _;

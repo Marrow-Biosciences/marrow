@@ -24,11 +24,16 @@ crate.from_cargo(name = "crates_risingwave", cargo_lockfile = "//risingwave:Carg
 crate.annotation(crate = "gcp-bigquery-client", repositories = ["crates_risingwave"], patches = ["//patches:gcp_bigquery_client.patch"])
 crate.annotation(crate = "otlp-embedded", repositories = ["crates_risingwave"], build_script_tools = ["@protobuf//:protoc"], build_script_env = {"PROTOC": "$(execpath @protobuf//:protoc)"})
 crate.annotation(crate = "pulsar", repositories = ["crates_risingwave"], build_script_tools = ["@protobuf//:protoc"], build_script_env = {"PROTOC": "$(execpath @protobuf//:protoc)"})
-crate.annotation(crate = "risingwave_cmd_all", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_cmd_all.patch"], gen_all_binaries = True)  # Run standalone binary `bazel run @crates_risingwave//:risingwave_cmd_all__risingwave`
+crate.annotation(
+  crate = "risingwave_cmd_all",
+  repositories = ["crates_risingwave"],
+  patches = ["//patches:risingwave_cmd_all.patch"],
+  gen_all_binaries = True,  # Run standalone binary `bazel run @crates_risingwave//:risingwave_cmd_all__risingwave`
+  deps = ["@marrow//risingwave/kernel:add_one"],
+)
 crate.annotation(crate = "risingwave_common", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_common.patch"])
 crate.annotation(crate = "risingwave_connector", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_connector.patch"])
 crate.annotation(crate = "risingwave_connector_codec", repositories = ["crates_risingwave"], gen_build_script = "off")  # Build script is only for testing purpose
-crate.annotation(crate = "risingwave_expr_impl", repositories = ["crates_risingwave"], deps = ["@marrow//risingwave/kernel:add_one"])
 crate.annotation(crate = "risingwave_frontend", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_frontend.patch"])
 crate.annotation(crate = "risingwave_meta", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_meta.patch"])
 crate.annotation(crate = "risingwave_meta_model", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_meta_model.patch"])

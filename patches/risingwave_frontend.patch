@@ -1,3 +1,11 @@
+--- src/binder/expr/function/builtin_scalar.rs
++++ src/binder/expr/function/builtin_scalar.rs
+@@ -228,1 +228,3 @@
+-                // string
++                // marrow
++                ("add_one", raw_call(ExprType::AddOne)),
++                // string
+
 --- src/catalog/mod.rs
 +++ src/catalog/mod.rs
 @@ -110,1 +110,1 @@
@@ -19,7 +27,7 @@
 
 --- src/optimizer/plan_expr_visitor/strong.rs
 +++ src/optimizer/plan_expr_visitor/strong.rs
-@@ -119,1 +119,2 @@
--            | ExprType::Least => self.any_null(func_call),
-+            | ExprType::Least
-+            | ExprType::AddOne => self.any_null(func_call),
+@@ -354,1 +354,2 @@
+-            | ExprType::Random => false,
++            | ExprType::Random
++            | ExprType::AddOne => false,
