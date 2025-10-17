@@ -17,7 +17,7 @@ rust_test(
   name = "add_one_test",
   crate = ":add_one",
   deps = [
-    "@crates_test//:rstest",
-    "@crates_test//:similar-asserts",
+    "@crates//:rstest",
+    "@crates//:similar-asserts",
   ],
 )
