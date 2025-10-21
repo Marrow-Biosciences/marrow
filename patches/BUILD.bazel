@@ -12,5 +12,6 @@ exports_files([
   "risingwave_object_store.patch",
   "risingwave_pb.patch",
   "risingwave_proto_expr.patch",
+  "rules_oci.patch",
   "rules_rust.patch",
 ])

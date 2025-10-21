@@ -1,4 +1,6 @@
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_image_index", "oci_load", "oci_push")
 load("@rules_rust//rust:defs.bzl", "rust_binary")
+load("@tar.bzl", "tar")
 
 DEPS = [
   "@crates_risingwave//:clap",
@@ -8,6 +10,29 @@ DEPS = [
 ]
 
 rust_binary(name = "compactor", srcs = ["compactor.rs"], deps = DEPS)
+tar(name = "compactor_tar", srcs = [":compactor"])
+oci_image(name = "compactor_image", base = "@distroless_cc", tars = [":compactor_tar"], workdir = "/risingwave/bin/compactor.runfiles/_main", entrypoint = ["risingwave/bin/compactor"])
+oci_image_index(name = "compactor_index", images = [":compactor_image"])
+oci_load(name = "compactor_load", format = "oci", image = ":compactor_index", repo_tags = ["risingwave-compactor:latest"])
+oci_push(name = "compactor_push", image = ":compactor_index", repository = "gcr.io/marrow/risingwave-compactor", remote_tags = ["latest"])
+
 rust_binary(name = "compute", srcs = ["compute.rs"], deps = DEPS)
+tar(name = "compute_tar", srcs = [":compute"])
+oci_image(name = "compute_image", base = "@distroless_cc", tars = [":compute_tar"], workdir = "/risingwave/bin/compute.runfiles/_main", entrypoint = ["risingwave/bin/compute"])
+oci_image_index(name = "compute_index", images = [":compute_image"])
+oci_load(name = "compute_load", format = "oci", image = ":compute_index", repo_tags = ["risingwave-compute:latest"])
+oci_push(name = "compute_push", image = ":compute_index", repository = "gcr.io/marrow/risingwave-compute", remote_tags = ["latest"])
+
 rust_binary(name = "frontend", srcs = ["frontend.rs"], deps = DEPS)
+tar(name = "frontend_tar", srcs = [":frontend"])
+oci_image(name = "frontend_image", base = "@distroless_cc", tars = [":frontend_tar"], workdir = "/risingwave/bin/frontend.runfiles/_main", entrypoint = ["risingwave/bin/frontend"])
+oci_image_index(name = "frontend_index", images = [":frontend_image"])
+oci_load(name = "frontend_load", format = "oci", image = ":frontend_index", repo_tags = ["risingwave-frontend:latest"])
+oci_push(name = "frontend_push", image = ":frontend_index", repository = "gcr.io/marrow/risingwave-frontend", remote_tags = ["latest"])
+
 rust_binary(name = "meta", srcs = ["meta.rs"], deps = DEPS)
+tar(name = "meta_tar", srcs = [":meta"])
+oci_image(name = "meta_image", base = "@distroless_cc", tars = [":meta_tar"], workdir = "/risingwave/bin/meta.runfiles/_main", entrypoint = ["risingwave/bin/meta"])
+oci_image_index(name = "meta_index", images = [":meta_image"])
+oci_load(name = "meta_load", format = "oci", image = ":meta_index", repo_tags = ["risingwave-meta:latest"])
+oci_push(name = "meta_push", image = ":meta_index", repository = "gcr.io/marrow/risingwave-meta", remote_tags = ["latest"])
