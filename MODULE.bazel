@@ -5,9 +5,9 @@ bazel_dep(name = "protobuf", version = "32.1")
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 http_archive(
   name = "risingwave",
-  urls = ["https://github.com/risingwavelabs/risingwave/archive/refs/tags/v2.6.0.tar.gz"],
-  strip_prefix = "risingwave-2.6.0",
-  integrity = "sha256-nDJL7qiy+SgiTb1bKZySd9uzpPQhXLe0cOHZDb8Djy4=",
+  urls = ["https://github.com/risingwavelabs/risingwave/archive/refs/tags/v2.6.1.tar.gz"],
+  strip_prefix = "risingwave-2.6.1",
+  integrity = "sha256-RxrAY/rFRzBwJyUuDsatU0IBIVywbzMjX5TOFJ0Iuwk=",
   build_file_content = """exports_files(glob(["proto/**/*.proto"]))""",
   patches = ["//patches:risingwave_proto_expr.patch"],
 )

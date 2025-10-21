@@ -6,11 +6,11 @@ anyhow = "1.0.100"
 # https://github.com/risingwavelabs/risingwave/blob/v2.6.1/Cargo.toml#L152
 clap = "4.5.50"
 linkme = "0.3.35"
-risingwave_common = { git = "https://github.com/risingwavelabs/risingwave.git", tag = "v2.6.0" }
-risingwave_cmd = { git = "https://github.com/risingwavelabs/risingwave.git", tag = "v2.6.0" }
-risingwave_cmd_all = { git = "https://github.com/risingwavelabs/risingwave.git", tag = "v2.6.0" }
-risingwave_pb = { git = "https://github.com/risingwavelabs/risingwave.git", tag = "v2.6.0" }
-risingwave_expr = { git = "https://github.com/risingwavelabs/risingwave.git", tag = "v2.6.0" }
+risingwave_common = { git = "https://github.com/risingwavelabs/risingwave.git", tag = "v2.6.1" }
+risingwave_cmd = { git = "https://github.com/risingwavelabs/risingwave.git", tag = "v2.6.1" }
+risingwave_cmd_all = { git = "https://github.com/risingwavelabs/risingwave.git", tag = "v2.6.1" }
+risingwave_pb = { git = "https://github.com/risingwavelabs/risingwave.git", tag = "v2.6.1" }
+risingwave_expr = { git = "https://github.com/risingwavelabs/risingwave.git", tag = "v2.6.1" }
 # Using crate.annotation in MODULE.bazel to toggle on sqlx-sqlite for sea-orm-migration does not impact its dependency resolution
 # See more at https://github.com/bazelbuild/rules_rust/issues/3626
 # So the sea-schema as dependency of sea-orm-migration does not have its sqlx-sqlite feature enabled
