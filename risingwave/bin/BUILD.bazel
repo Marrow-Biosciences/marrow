@@ -1,0 +1,13 @@
+load("@rules_rust//rust:defs.bzl", "rust_binary")
+
+DEPS = [
+  "@crates_risingwave//:clap",
+  "@crates_risingwave//:risingwave_cmd",
+  "@crates_risingwave//:risingwave_common",
+  "@crates_risingwave//:tikv-jemallocator",
+]
+
+rust_binary(name = "compactor", srcs = ["compactor.rs"], deps = DEPS)
+rust_binary(name = "compute", srcs = ["compute.rs"], deps = DEPS)
+rust_binary(name = "frontend", srcs = ["frontend.rs"], deps = DEPS)
+rust_binary(name = "meta", srcs = ["meta.rs"], deps = DEPS)

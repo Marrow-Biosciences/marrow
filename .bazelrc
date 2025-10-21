@@ -1,2 +1,2 @@
+build --@rules_rust//rust/settings:extra_rustc_flag=-Zmacro-backtrace
 build --@rules_rust//rust/toolchain/channel=nightly
-build --@rules_rust//rust/settings:extra_rustc_flags="-Zmacro-backtrace"

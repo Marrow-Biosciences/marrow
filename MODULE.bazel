@@ -26,6 +26,12 @@ crate.annotation(crate = "lru", version = "0.7.6", repositories = ["crates_risin
 crate.annotation(crate = "otlp-embedded", repositories = ["crates_risingwave"], build_script_tools = ["@protobuf//:protoc"], build_script_env = {"PROTOC": "$(execpath @protobuf//:protoc)"})
 crate.annotation(crate = "pulsar", repositories = ["crates_risingwave"], build_script_tools = ["@protobuf//:protoc"], build_script_env = {"PROTOC": "$(execpath @protobuf//:protoc)"})
 crate.annotation(
+  crate = "risingwave_cmd",
+  repositories = ["crates_risingwave"],
+  patches = ["//patches:risingwave_cmd.patch"],
+  deps = ["@marrow//risingwave/kernel:add_one"],
+)
+crate.annotation(
   crate = "risingwave_cmd_all",
   repositories = ["crates_risingwave"],
   patches = ["//patches:risingwave_cmd_all.patch"],

@@ -27,6 +27,8 @@ Here are the custom native kernels we patch into the RisingWave binary.
    1. Add the name of the kernel to the built-in function names list, following `add_one`.
    2. Set the purity of the kernel, based on whether the output is deterministic with regards to the input. Reference `/src/frontend/src/expr/pure.rs`.
    3. Configure the plan optimizer with the nullability of the kernel, how the kernel output nullability varies with the input nullability. Reference `/src/frontend/src/optimizer/plan_expr_visitor/strong.rs`.
-3. Update `/patches/risingwave_cmd_all.patch` to link the kernel. Clone the `use add_one as _;` statement.
-4. Update `/MODULE.bazel` at the `risingwave_cmd_all` crate annotation to inject the kernel library as its dependency.
-5. Launch the entrypoint `bazel run @crates_risingwave//:risingwave_cmd_all__risingwave` to verify build correctness.
+3. Update `/patches/risingwave_cmd.patch` to link the kernel to standalone binary. Clone the `use add_one as _;` statement.
+4. Update `/patches/risingwave_cmd_all.patch` to link the kernel to distributed binaries. Clone the `use add_one as _;` statement.
+5. Update `/MODULE.bazel` at the `risingwave_cmd` crate annotation to inject the kernel library as its dependency.
+6. Update `/MODULE.bazel` at the `risingwave_cmd_all` crate annotation to inject the kernel library as its dependency.
+7. Launch the entrypoint `bazel run @crates_risingwave//:risingwave_cmd_all__risingwave` to verify build correctness.

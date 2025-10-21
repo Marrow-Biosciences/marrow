@@ -1,6 +1,7 @@
 exports_files([
   "gcp_bigquery_client.patch",
   "lru.patch",
+  "risingwave_cmd.patch",
   "risingwave_cmd_all.patch",
   "risingwave_common.patch",
   "risingwave_connector.patch",

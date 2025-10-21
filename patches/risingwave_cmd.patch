@@ -1,0 +1,6 @@
+--- src/lib.rs
++++ src/lib.rs
+@@ -36,1 +36,2 @@
+-risingwave_expr_impl::enable!();
++risingwave_expr_impl::enable!();
++use add_one as _;
