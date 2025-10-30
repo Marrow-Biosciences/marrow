@@ -1,4 +1,5 @@
 exports_files([
+  "faiss_sys.patch",
   "gcp_bigquery_client.patch",
   "lru.patch",
   "risingwave_cmd.patch",
@@ -14,4 +15,5 @@ exports_files([
   "risingwave_proto_expr.patch",
   "rules_oci.patch",
   "rules_rust.patch",
+  "zstd_sys.patch",
 ])

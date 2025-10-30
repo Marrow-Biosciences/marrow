@@ -1,0 +1,22 @@
+--- build.rs
++++ build.rs
+@@ -11,1 +11,3 @@
+-    cfg.define("FAISS_ENABLE_C_API", "ON")
++    let openblas_readme = std::env::var("OPENBLAS_README").unwrap();
++    cfg.define("FAISS_ENABLE_C_API", "ON")
++        .define("CMAKE_PREFIX_PATH", std::path::Path::new(&openblas_readme).parent().unwrap().to_str().unwrap())
+@@ -26,3 +26,0 @@
+-    if cfg!(target_os = "macos") {
+-        cfg.define("CMAKE_CXX_COMPILER", "/opt/homebrew/opt/llvm/bin/clang++");
+-    }
+@@ -49,9 +49,1 @@
+-    #[cfg(target_os = "macos")]
+-    {
+-        println!("cargo:rustc-link-search=/opt/homebrew/opt/llvm/lib");
+-        println!("cargo:rustc-link-lib=omp");
+-    }
+-    #[cfg(target_os = "linux")]
+-    {
+-        println!("cargo:rustc-link-lib=gomp");
+-    }
++    println!("cargo:rustc-link-lib=gomp");

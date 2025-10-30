@@ -1,11 +1,27 @@
 module(name = "marrow", version = "0.0.0")
+bazel_dep(name = "bazel_lib", version = "3.0.0")
+bazel_dep(name = "platforms", version = "1.0.0")
+bazel_dep(name = "bazel_lib", version = "3.0.0")
+bazel_dep(name = "openssl", version = "3.3.1.bcr.7")
+bazel_dep(name = "platforms", version = "1.0.0")
 bazel_dep(name = "protobuf", version = "32.1")
 bazel_dep(name = "rules_oci", version = "2.2.6")
 single_version_override(module_name = "rules_oci", patches = ["//patches:rules_oci.patch"])
 bazel_dep(name = "rules_rust", version = "0.66.0")
 single_version_override(module_name = "rules_rust", patches = ["//patches:rules_rust.patch"])
 bazel_dep(name = "tar.bzl", version = "0.6.0")
+bazel_dep(name = "toolchains_musl", version = "0.1.27")
+bazel_dep(name = "zstd", version = "1.5.7")
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+http_archive(
+  name = "openblas",
+  urls = ["https://github.com/OpenMathLib/OpenBLAS/releases/download/v0.3.30/OpenBLAS-0.3.30.tar.gz"],
+  strip_prefix = "OpenBLAS-0.3.30",
+  integrity = "sha256-JzQs/1GGRq+0wrl22AkQLjaJV5dMJQolzMll5TBjyV0=",
+  build_file_content = """
+exports_files(["README.md"])
+filegroup(name = "files", srcs = glob(["**/*"]), visibility = ["//visibility:public"])""",
+)
 http_archive(
   name = "risingwave",
   urls = ["https://github.com/risingwavelabs/risingwave/archive/refs/tags/v2.6.1.tar.gz"],
@@ -37,10 +53,20 @@ rust_host_tools = use_extension("@rules_rust//rust:extensions.bzl", "rust_host_t
 rust_host_tools.host_tools(name = "rust_host_tools_nightly", edition = "2024", version = "nightly")
 use_repo(rust_host_tools, "rust_host_tools_nightly")
 crate = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
-inject_repo(crate, "marrow", "protobuf", "risingwave")
+inject_repo(crate, "marrow", "openblas", "openssl", "protobuf", "risingwave", "zstd")
 crate.from_cargo(name = "crates_risingwave", cargo_lockfile = "//risingwave:Cargo.lock", manifests = ["//risingwave:Cargo.toml"], host_tools = "@rust_host_tools_nightly")
+crate.annotation(crate = "faiss-sys", repositories = ["crates_risingwave"], build_script_data = ["@openblas//:README.md", "@openblas//:files"], build_script_env = {"OPENBLAS_README": "$(execpath @openblas//:README.md)"}, patches = ["//patches:faiss_sys.patch"])
 crate.annotation(crate = "gcp-bigquery-client", repositories = ["crates_risingwave"], patches = ["//patches:gcp_bigquery_client.patch"])
+crate.annotation(crate = "krb5-src", repositories = ["crates_risingwave"], build_script_data = ["@openssl//:gen_dir"], build_script_env = {
+  "ac_cv_func_regcomp": "yes",
+  "krb5_cv_attr_constructor_destructor": "yes",
+  # https://github.com/bazelbuild/rules_rust/issues/3367
+  "OPENSSL_DIR": "$(execpath @openssl//:gen_dir)",
+  "OPENSSL_NO_VENDOR": "1",
+  "OPENSSL_STATIC": "1",
+})
 crate.annotation(crate = "lru", version = "0.7.6", repositories = ["crates_risingwave"], patches = ["//patches:lru.patch"])
+crate.annotation(crate = "openssl-sys", repositories = ["crates_risingwave"], build_script_data = ["@openssl//:gen_dir"], build_script_env = {"OPENSSL_DIR": "$(execpath @openssl//:gen_dir)", "OPENSSL_NO_VENDOR": "1", "OPENSSL_STATIC": "1"})  # https://github.com/bazelbuild/rules_rust/issues/3367
 crate.annotation(crate = "otlp-embedded", repositories = ["crates_risingwave"], build_script_tools = ["@protobuf//:protoc"], build_script_env = {"PROTOC": "$(execpath @protobuf//:protoc)"})
 crate.annotation(crate = "pulsar", repositories = ["crates_risingwave"], build_script_tools = ["@protobuf//:protoc"], build_script_env = {"PROTOC": "$(execpath @protobuf//:protoc)"})
 crate.annotation(
@@ -105,6 +131,7 @@ crate.annotation(
   patches = ["//patches:risingwave_pb.patch"],
 )
 crate.annotation(crate = "sea-orm-migration", repositories = ["crates_risingwave"], crate_features = ["sqlx-sqlite"])
+crate.annotation(crate = "zstd-sys", repositories = ["crates_risingwave"], build_script_data = ["@zstd//:zstd"], build_script_env = {"ZSTD": "$(execpath @zstd//:zstd)"}, patches = ["//patches:zstd_sys.patch"])
 crate.spec(package = "rstest", version = "0.26.1", default_features = False, features = ["async-timeout"])
 crate.spec(package = "similar-asserts", version = "1.7.0")
 crate.spec(package = "tap", version = "1.0.1")
