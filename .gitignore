@@ -2,5 +2,6 @@
 /bazel-marrow
 /bazel-out
 /bazel-testlogs
+/MODULE.bazel.lock
 /rust-project.json
 target/
