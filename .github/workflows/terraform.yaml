@@ -13,6 +13,8 @@ jobs:
           workload_identity_provider: projects/22128417358/locations/global/workloadIdentityPools/github/providers/marrow
       - uses: hashicorp/setup-terraform@v3
       - name: Terraform Init
+        working-directory: terraform
         run: terraform init -input=false
       - name: Terraform Apply
+        working-directory: terraform
         run: terraform apply -auto-approve
