@@ -1,0 +1,35 @@
+name: bazel
+on: push
+jobs:
+  build-test-deploy:
+    runs-on: blacksmith-8vcpu-ubuntu-2204
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install dotenvx
+        run: curl -L -o dotenvx.tar.gz "https://github.com/dotenvx/dotenvx/releases/latest/download/dotenvx-$(uname -s)-$(uname -m).tar.gz" && tar -xzf dotenvx.tar.gz
+      - uses: bazel-contrib/setup-bazel@0.15.0
+        with:
+          disk-cache: true
+          external-cache: true
+          repository-cache: true
+      - name: Build
+        run: ./dotenvx run -- bash -c 'bazel build --config=ci --remote_header=x-buildbuddy-api-key=$BUILDBUDDY_API_KEY //...'
+        env:
+          DOTENV_PRIVATE_KEY_CI: ${{ secrets.DOTENV_PRIVATE_KEY_CI }}
+      - name: Test
+        run: ./dotenvx run -- bash -c 'bazel test --config=ci --remote_header=x-buildbuddy-api-key=$BUILDBUDDY_API_KEY //...'
+        env:
+          DOTENV_PRIVATE_KEY_CI: ${{ secrets.DOTENV_PRIVATE_KEY_CI }}
+      - uses: google-github-actions/auth@v2
+        with:
+          project_id: compute-cluster-476800
+          workload_identity_provider: projects/22128417358/locations/global/workloadIdentityPools/github/providers/marrow
+      - uses: google-github-actions/setup-gcloud@v3
+        with:
+          project_id: compute-cluster-476800
+      - name: Authenticate
+        run: gcloud auth configure-docker northamerica-northeast2-docker.pkg.dev
+      - name: Deploy
+        run: ./dotenvx run -- bash -c 'bazel run --config=ci --remote_header=x-buildbuddy-api-key=$BUILDBUDDY_API_KEY //:push_all'
+        env:
+          DOTENV_PRIVATE_KEY_CI: ${{ secrets.DOTENV_PRIVATE_KEY_CI }}

@@ -1,4 +1,17 @@
+load("@rules_multirun//:defs.bzl", "multirun")
 load("@rules_rust//rust:defs.bzl", "rust_binary")
+
+multirun(
+  name = "push_all",
+  commands = [
+    "//risingwave/bin:compactor_push_command",
+    "//risingwave/bin:compute_push_command",
+    "//risingwave/bin:frontend_push_command",
+    "//risingwave/bin:glibc_test_push_command",
+    "//risingwave/bin:meta_push_command",
+  ],
+  jobs = 0,
+)
 
 rust_binary(
   name = "main",
