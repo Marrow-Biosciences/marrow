@@ -2,12 +2,8 @@ name: build
 on: push
 jobs:
   build:
-    runs-on: blacksmith-4vcpu-ubuntu-2204
+    runs-on: blacksmith-8vcpu-ubuntu-2204
     steps:
-      - uses: jlumbroso/free-disk-space@v1.3.1
-        with:
-          tool-cache: true
-          large-packages: false # LLVM is required for non-hermetic cc builds
       - uses: actions/checkout@v5
       - uses: bazel-contrib/setup-bazel@0.15.0
         with:
