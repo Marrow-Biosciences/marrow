@@ -18,7 +18,18 @@ http_archive(
   patches = ["//patches:risingwave_proto_expr.patch"],
 )
 rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
-rust.toolchain(edition = "2024", versions = ["nightly/2025-10-17"], extra_target_triples = ["x86_64-unknown-linux-musl"])
+rust.toolchain(
+  edition = "2024",
+  versions = ["nightly/2025-10-17"],
+  extra_target_triples = ["x86_64-unknown-linux-musl"],
+  sha256s = {
+    "2025-10-17/rustc-nightly-x86_64-unknown-linux-gnu.tar.xz": "4abe15cf6edf3b0ad0c805aaade58db830a967da4e9955239ad6abc1ca62719c",
+    "2025-10-17/clippy-nightly-x86_64-unknown-linux-gnu.tar.xz": "37e909be7b3ffb405a608a7c74dc0c112752d487ab047f26210a8678d9569923",
+    "2025-10-17/cargo-nightly-x86_64-unknown-linux-gnu.tar.xz": "3e30eaf6e96b38826f73dc2ff59e9868fe9b23358b24978a84a77fb3efbe579d",
+    "2025-10-17/llvm-tools-nightly-x86_64-unknown-linux-gnu.tar.xz": "ca98d6f9ed9d49509c628cb4e0fbf853f177a52669563368e16a75d98d0a7e56",
+    "2025-10-17/rust-std-nightly-x86_64-unknown-linux-gnu.tar.xz": "05ff1c760f9e1da9fb45a27276ea177346c43e96125c4b35b800cb3c8c563a4b",
+  }
+)
 use_repo(rust, "rust_toolchains")
 register_toolchains("@rust_toolchains//:all")
 rust_host_tools = use_extension("@rules_rust//rust:extensions.bzl", "rust_host_tools")
@@ -104,5 +115,5 @@ tar = use_extension("@tar.bzl//tar:extensions.bzl", "toolchains")
 use_repo(tar, "bsd_tar_toolchains")
 register_toolchains("@bsd_tar_toolchains//:all")
 oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
-oci.pull(name = "distroless_cc", tag = "latest", image = "gcr.io/distroless/cc", platforms = ["linux/amd64", "linux/arm64/v8"])
+oci.pull(name = "distroless_cc", tag = "latest", image = "gcr.io/distroless/cc", platforms = ["linux/amd64", "linux/arm64/v8"], reproducible = False)
 use_repo(oci, "distroless_cc", "distroless_cc_linux_amd64", "distroless_cc_linux_arm64_v8")
