@@ -1,3 +1,4 @@
+/.bazelrc.local
 /bazel-bin
 /bazel-marrow
 /bazel-out
