@@ -4,6 +4,9 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
+      - uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true
       - uses: actions/checkout@v5
       - uses: bazel-contrib/setup-bazel@0.15.0
         with:
