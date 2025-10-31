@@ -5,10 +5,13 @@ jobs:
     runs-on: blacksmith-8vcpu-ubuntu-2204
     steps:
       - uses: actions/checkout@v5
+      - name: Install dotenvx
+        run: curl -L -o dotenvx.tar.gz "https://github.com/dotenvx/dotenvx/releases/latest/download/dotenvx-$(uname -s)-$(uname -m).tar.gz" && tar -xzf dotenvx.tar.gz
       - uses: bazel-contrib/setup-bazel@0.15.0
         with:
-          bazelrc: common --compilation_mode=opt
           disk-cache: true
           external-cache: true
           repository-cache: true
-      - run: bazel build //...
+      - run: ./dotenvx run -- bazel build --config=ci //...
+        env:
+          DOTENV_PRIVATE_KEY_CI: ${{ secrets.DOTENV_PRIVATE_KEY_CI }}
