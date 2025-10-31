@@ -40,6 +40,7 @@ crate = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
 inject_repo(crate, "marrow", "protobuf", "risingwave")
 crate.from_cargo(name = "crates_risingwave", cargo_lockfile = "//risingwave:Cargo.lock", manifests = ["//risingwave:Cargo.toml"], host_tools = "@rust_host_tools_nightly")
 crate.annotation(crate = "gcp-bigquery-client", repositories = ["crates_risingwave"], patches = ["//patches:gcp_bigquery_client.patch"])
+crate.annotation(crate = "jsonschema-transpiler", repositories = ["crates_risingwave"], gen_build_script = "off")  # Build script is only for testing purpose
 crate.annotation(crate = "lru", version = "0.7.6", repositories = ["crates_risingwave"], patches = ["//patches:lru.patch"])
 crate.annotation(crate = "otlp-embedded", repositories = ["crates_risingwave"], build_script_tools = ["@protobuf//:protoc"], build_script_env = {"PROTOC": "$(execpath @protobuf//:protoc)"})
 crate.annotation(crate = "pulsar", repositories = ["crates_risingwave"], build_script_tools = ["@protobuf//:protoc"], build_script_env = {"PROTOC": "$(execpath @protobuf//:protoc)"})
