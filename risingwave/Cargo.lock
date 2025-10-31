@@ -10234,6 +10234,7 @@ dependencies = [
  "rstest",
  "sea-schema",
  "similar-asserts",
+ "tap",
  "tikv-jemallocator",
  "tonic-build",
  "tracing",

@@ -1,6 +1,16 @@
-load("@rules_rust//rust:defs.bzl", "rust_library")
+load("@bazel_lib//lib:transitions.bzl", "platform_transition_binary")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_image_index", "oci_load")
+load("@rules_rust//rust:defs.bzl", "rust_binary", "rust_library")
+load("@tar.bzl", "tar")
 
 exports_files(["Cargo.lock", "Cargo.toml"])
+
+rust_binary(name = "glibc_test", srcs = ["glibc_test.rs"], deps = ["@crates//:tap"])
+platform_transition_binary(name = "glibc_test_container", binary = ":glibc_test", target_platform = "//platform:container")
+tar(name = "glibc_test_tar", srcs = [":glibc_test_container"])
+oci_image(name = "glibc_test_image", base = "@distroless_cc", tars = [":glibc_test_tar"], entrypoint = ["/risingwave/glibc_test"])
+oci_image_index(name = "glibc_test_index", images = [":glibc_test_image"])
+oci_load(name = "glibc_test_load", format = "oci", image = ":glibc_test_index", repo_tags = ["risingwave-glibc_test:latest"])
 
 rust_library(
   name = "tonic_build_prod",
