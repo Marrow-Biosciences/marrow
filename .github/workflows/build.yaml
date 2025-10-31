@@ -1,0 +1,14 @@
+name: build
+on: { push: { branches: ["main"] } }
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: bazel-contrib/setup-bazel@0.15.0
+        with:
+          bazelrc: common --compilation_mode=opt
+          disk-cache: true
+          external-cache: true
+          repository-cache: true
+      - run: bazel build //...
