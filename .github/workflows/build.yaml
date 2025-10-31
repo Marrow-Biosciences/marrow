@@ -2,12 +2,12 @@ name: build
 on: push
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v5
       - uses: bazel-contrib/setup-bazel@0.15.0
         with:
-          bazelrc: common --compilation_mode=opt --host_platform=//platform:container --platforms=//platform:container
+          bazelrc: common --compilation_mode=opt
           disk-cache: true
           external-cache: true
           repository-cache: true
