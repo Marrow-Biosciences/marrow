@@ -157,20 +157,20 @@ resource "kubernetes_service_v1" "risingwave_compute" {
       app = kubernetes_deployment_v1.risingwave_compute.spec[0].selector[0].match_labels.app
     }
     port {
-      name        = kubernetes_deployment_v1.risingwave_compute.spec[0].template.spec.containers[0].ports[0].name
-      port        = kubernetes_deployment_v1.risingwave_compute.spec[0].template.spec.containers[0].ports[0].container_port
-      target_port = kubernetes_deployment_v1.risingwave_compute.spec[0].template.spec.containers[0].ports[0].name
+      name        = kubernetes_deployment_v1.risingwave_compute.spec[0].template[0].spec.containers[0].ports[0].name
+      port        = kubernetes_deployment_v1.risingwave_compute.spec[0].template[0].spec.containers[0].ports[0].container_port
+      target_port = kubernetes_deployment_v1.risingwave_compute.spec[0].template[0].spec.containers[0].ports[0].name
     }
     port {
-      name        = kubernetes_deployment_v1.risingwave_compute.spec[0].template.spec.containers[0].ports[1].name
-      port        = kubernetes_deployment_v1.risingwave_compute.spec[0].template.spec.containers[0].ports[1].container_port
-      target_port = kubernetes_deployment_v1.risingwave_compute.spec[0].template.spec.containers[0].ports[1].name
+      name        = kubernetes_deployment_v1.risingwave_compute.spec[0].template[0].spec.containers[0].ports[1].name
+      port        = kubernetes_deployment_v1.risingwave_compute.spec[0].template[0].spec.containers[0].ports[1].container_port
+      target_port = kubernetes_deployment_v1.risingwave_compute.spec[0].template[0].spec.containers[0].ports[1].name
     }
     type = "ClusterIP"
   }
 }
 
-resource "kubernetes_manifest_v1" "risingwave_compute" {
+resource "kubernetes_manifest" "risingwave_compute" {
   manifest = {
     apiVersion = "monitoring.googleapis.com/v1"
     kind       = "PodMonitoring"
