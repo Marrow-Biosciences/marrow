@@ -27,7 +27,7 @@ jobs:
   apply:
     runs-on: blacksmith-2vcpu-ubuntu-2404-arm
     needs: plan
-    if: github.ref == "refs/heads/main" && github.event_name == "push"
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     permissions:
       contents: read
       id-token: write
