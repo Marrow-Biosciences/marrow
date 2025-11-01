@@ -6,6 +6,7 @@ on:
 jobs:
   plan:
     runs-on: blacksmith-2vcpu-ubuntu-2404-arm
+    if: github.ref != 'refs/heads/main'
     permissions:
       contents: read
       id-token: write
@@ -34,7 +35,6 @@ jobs:
           DOTENV_PRIVATE_KEY_CI: ${{ secrets.DOTENV_PRIVATE_KEY_CI }}
   apply:
     runs-on: blacksmith-2vcpu-ubuntu-2404-arm
-    needs: plan
     if: github.ref == 'refs/heads/main'
     permissions:
       contents: read
