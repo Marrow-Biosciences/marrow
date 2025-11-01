@@ -1,0 +1,14 @@
+# From https://github.com/GoogleContainerTools/distroless/blob/901e582de791027c2ed226ee9a5c1f71abdf8725/private/repos/deb/bookworm.yaml
+# @distroless_cc base image is built from the above repository so additional packages are taken from the same source as the base image
+version: 1
+sources:
+  - channel: bookworm main
+    url: https://snapshot.debian.org/archive/debian/20251025T204106Z
+  - channel: bookworm-updates main
+    url: https://snapshot.debian.org/archive/debian/20251025T204106Z
+  - channel: bookworm-security main
+    url: https://snapshot.debian.org/archive/debian-security/20251025T204106Z
+archs: [amd64, arm64]
+packages:
+  - libblas-dev
+  - liblapack-dev
