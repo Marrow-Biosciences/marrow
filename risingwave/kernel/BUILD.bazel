@@ -1,8 +1,15 @@
-load("@rules_rust//rust:defs.bzl", "rust_library", "rust_test")
+load("@rules_rust//rust:defs.bzl", "rust_library", "rust_library_group", "rust_test")
 
-rust_library(
-  name = "add_one",
-  srcs = ["add_one.rs"],
+rust_library_group(
+  name = "kernel",
+  deps = [
+    ":add_one",
+  ],
+  visibility = ["//visibility:public"],
+)
+
+rust_library_group(
+  name = "common_deps",
   deps = [
     "@crates_risingwave//:anyhow",
     "@crates_risingwave//:linkme",
@@ -10,7 +17,12 @@ rust_library(
     "@crates_risingwave//:risingwave_expr",
     "@crates_risingwave//:risingwave_pb",
   ],
-  visibility = ["//visibility:public"],
+)
+
+rust_library(
+  name = "add_one",
+  srcs = ["add_one.rs"],
+  deps = [":common_deps"],
 )
 
 rust_test(

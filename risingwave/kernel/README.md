@@ -29,6 +29,5 @@ Here are the custom native kernels we patch into the RisingWave binary.
    3. Configure the plan optimizer with the nullability of the kernel, how the kernel output nullability varies with the input nullability. Reference `/src/frontend/src/optimizer/plan_expr_visitor/strong.rs`.
 3. Update `/patches/risingwave_cmd.patch` to link the kernel to standalone binary. Clone the `use add_one as _;` statement.
 4. Update `/patches/risingwave_cmd_all.patch` to link the kernel to distributed binaries. Clone the `use add_one as _;` statement.
-5. Update `/MODULE.bazel` at the `risingwave_cmd` crate annotation to inject the kernel library as its dependency.
-6. Update `/MODULE.bazel` at the `risingwave_cmd_all` crate annotation to inject the kernel library as its dependency.
-7. Launch the entrypoint `bazel run @crates_risingwave//:risingwave_cmd_all__risingwave` to verify build correctness.
+5. Update `BUILD.bazel` at `kernel` target to include the kernel library into the `rust_library_group`.
+6. Launch the entrypoint `bazel run @crates_risingwave//:risingwave_cmd_all__risingwave` to verify build correctness.
