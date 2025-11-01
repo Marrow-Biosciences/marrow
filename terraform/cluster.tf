@@ -15,4 +15,10 @@ resource "google_container_cluster" "marrow" {
   network          = google_compute_network.marrow.id
   subnetwork       = google_compute_subnetwork.marrow.id
   enable_autopilot = true
+  monitoring_config {
+    enable_components = ["SYSTEM_COMPONENTS"]
+    managed_prometheus {
+      enabled = true
+    }
+  }
 }

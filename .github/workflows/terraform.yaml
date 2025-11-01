@@ -1,7 +1,5 @@
 name: terraform
 on:
-  pull_request:
-    paths: ["terraform/**", ".github/workflows/terraform.yaml"]
   push:
     paths: ["terraform/**", ".github/workflows/terraform.yaml"]
 jobs:
@@ -12,6 +10,9 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v5
+      - name: Install dotenvx
+        run: curl -L -o dotenvx.tar.gz https://github.com/dotenvx/dotenvx/releases/latest/download/dotenvx-linux-arm64.tar.gz && tar -xzf dotenvx.tar.gz
+        working-directory: terraform
       - uses: google-github-actions/auth@v2
         with:
           project_id: compute-cluster-476800
@@ -27,16 +28,21 @@ jobs:
         run: terraform init -input=false
       - name: Terraform Plan
         working-directory: terraform
-        run: terraform plan -input=false
+        run: ./dotenvx run -f ../.env.ci -- bash -c 'terraform plan -input=false -var="risingwave_metadata_dsn=$RISINGWAVE_METADATA_DSN"'
+        env:
+          DOTENV_PRIVATE_KEY_CI: ${{ secrets.DOTENV_PRIVATE_KEY_CI }}
   apply:
     runs-on: blacksmith-2vcpu-ubuntu-2404-arm
     needs: plan
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/main'
     permissions:
       contents: read
       id-token: write
     steps:
       - uses: actions/checkout@v5
+      - name: Install dotenvx
+        run: curl -L -o dotenvx.tar.gz https://github.com/dotenvx/dotenvx/releases/latest/download/dotenvx-linux-arm64.tar.gz && tar -xzf dotenvx.tar.gz
+        working-directory: terraform
       - uses: google-github-actions/auth@v2
         with:
           project_id: compute-cluster-476800
@@ -52,4 +58,6 @@ jobs:
         run: terraform init -input=false
       - name: Terraform Apply
         working-directory: terraform
-        run: terraform apply -auto-approve
+        run: ./dotenvx run -f ../.env.ci -- bash -c 'terraform apply -auto-approve -var="risingwave_metadata_dsn=$RISINGWAVE_METADATA_DSN"'
+        env:
+          DOTENV_PRIVATE_KEY_CI: ${{ secrets.DOTENV_PRIVATE_KEY_CI }}
