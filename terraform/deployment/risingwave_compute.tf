@@ -111,7 +111,7 @@ resource "kubernetes_horizontal_pod_autoscaler_v2beta2" "risingwave_compute" {
         name = "cpu"
         target {
           type                = "Utilization"
-          average_utilization = var.risingwave_compute_container_cpu_request
+          average_utilization = var.risingwave_compute_container_target_cpu
         }
       }
     }
@@ -121,7 +121,7 @@ resource "kubernetes_horizontal_pod_autoscaler_v2beta2" "risingwave_compute" {
         name = "memory"
         target {
           type                = "Utilization"
-          average_utilization = var.risingwave_compute_container_memory_request
+          average_utilization = var.risingwave_compute_container_target_memory
         }
       }
     }
@@ -170,12 +170,13 @@ resource "kubernetes_service_v1" "risingwave_compute" {
   }
 }
 
-resource "kubernetes_manifest" "risingwave_compute" {
+resource "kubernetes_manifest_v1" "risingwave_compute" {
   manifest = {
     apiVersion = "monitoring.googleapis.com/v1"
     kind       = "PodMonitoring"
     metadata = {
-      name = "risingwave-compute-monitoring"
+      name      = "risingwave-compute-monitoring"
+      namespace = "default"
     }
     spec = {
       selector = {

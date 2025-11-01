@@ -3,7 +3,7 @@ resource "kubernetes_deployment_v1" "risingwave_compactor" {
     name = "risingwave-compactor-deployment"
   }
   spec {
-    replicas = 1
+    replicas = var.risingwave_compactor_deployment_replicas
     selector {
       match_labels = {
         app = "risingwave-compactor-app"
@@ -105,7 +105,8 @@ resource "kubernetes_manifest" "risingwave_compactor" {
     apiVersion = "monitoring.googleapis.com/v1"
     kind       = "PodMonitoring"
     metadata = {
-      name = "risingwave-compactor-monitoring"
+      name      = "risingwave-compactor-monitoring"
+      namespace = "default"
     }
     spec = {
       selector = {

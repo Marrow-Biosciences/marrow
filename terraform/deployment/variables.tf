@@ -40,6 +40,21 @@ variable "risingwave_compute_deployment_max_replicas" {
   default = 5
 }
 
+variable "risingwave_compactor_deployment_replicas" {
+  type    = number
+  default = 1
+}
+
+variable "risingwave_frontend_deployment_replicas" {
+  type    = number
+  default = 1
+}
+
+variable "risingwave_meta_deployment_replicas" {
+  type    = number
+  default = 1
+}
+
 variable "risingwave_metadata_dsn" {
   type      = string
   sensitive = true
