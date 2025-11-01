@@ -17,6 +17,7 @@ resource "kubernetes_deployment_v1" "risingwave_compactor" {
       }
       spec {
         node_selector = {
+          "cloud.google.com/compute-class"  = "Scale-Out"
           "cloud.google.com/machine-family" = "T2A"
           "kubernetes.io/arch"              = "arm64"
         }
