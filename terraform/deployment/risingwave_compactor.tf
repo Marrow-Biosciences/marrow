@@ -16,6 +16,10 @@ resource "kubernetes_deployment_v1" "risingwave_compactor" {
         }
       }
       spec {
+        node_selector = {
+          "cloud.google.com/machine-family" = "T2A"
+          "kubernetes.io/arch"              = "arm64"
+        }
         container {
           name  = "risingwave-compactor-container"
           image = "${var.region}-docker.pkg.dev/${var.project}/${var.repository}/risingwave-compactor:latest"
