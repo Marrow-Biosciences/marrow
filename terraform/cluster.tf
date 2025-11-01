@@ -10,11 +10,12 @@ resource "google_compute_subnetwork" "marrow" {
 }
 
 resource "google_container_cluster" "marrow" {
-  name             = "marrow-cluster"
-  location         = var.region
-  network          = google_compute_network.marrow.id
-  subnetwork       = google_compute_subnetwork.marrow.id
-  enable_autopilot = true
+  name                = "marrow-cluster"
+  location            = var.region
+  network             = google_compute_network.marrow.id
+  subnetwork          = google_compute_subnetwork.marrow.id
+  deletion_protection = false
+  enable_autopilot    = true
   monitoring_config {
     enable_components = ["SYSTEM_COMPONENTS"]
     managed_prometheus {
