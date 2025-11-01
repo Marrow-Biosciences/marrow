@@ -31,6 +31,8 @@ jobs:
       - name: Terraform Plan
         working-directory: terraform
         run: ./dotenvx run -f ../.env.ci -- bash -c 'terraform plan -input=false -var="risingwave_metadata_dsn=$RISINGWAVE_METADATA_DSN"'
+        env:
+          DOTENV_PRIVATE_KEY_CI: ${{ secrets.DOTENV_PRIVATE_KEY_CI }}
   apply:
     runs-on: blacksmith-2vcpu-ubuntu-2404-arm
     needs: plan
@@ -59,3 +61,5 @@ jobs:
       - name: Terraform Apply
         working-directory: terraform
         run: ./dotenvx run -f ../.env.ci -- bash -c 'terraform apply -auto-approve -var="risingwave_metadata_dsn=$RISINGWAVE_METADATA_DSN"'
+        env:
+          DOTENV_PRIVATE_KEY_CI: ${{ secrets.DOTENV_PRIVATE_KEY_CI }}
