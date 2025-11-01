@@ -30,7 +30,7 @@ jobs:
         run: terraform init -input=false
       - name: Terraform Plan
         working-directory: terraform
-        run: ./dotenvx run -- bash -c 'terraform plan -input=false -var="risingwave_metadata_dsn=$RISINGWAVE_METADATA_DSN"'
+        run: ./dotenvx run -f ../.env.ci -- bash -c 'terraform plan -input=false -var="risingwave_metadata_dsn=$RISINGWAVE_METADATA_DSN"'
   apply:
     runs-on: blacksmith-2vcpu-ubuntu-2404-arm
     needs: plan
@@ -58,4 +58,4 @@ jobs:
         run: terraform init -input=false
       - name: Terraform Apply
         working-directory: terraform
-        run: ./dotenvx run -- bash -c 'terraform apply -auto-approve -var="risingwave_metadata_dsn=$RISINGWAVE_METADATA_DSN"'
+        run: ./dotenvx run -f ../.env.ci -- bash -c 'terraform apply -auto-approve -var="risingwave_metadata_dsn=$RISINGWAVE_METADATA_DSN"'

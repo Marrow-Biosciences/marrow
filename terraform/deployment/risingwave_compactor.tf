@@ -22,11 +22,19 @@ resource "kubernetes_deployment_v1" "risingwave_compactor" {
           args = [
             "compactor-node",
             "--listen-addr", "0.0.0.0:6660",
-            "--advertise-addr", "${kubernetes_service_v1.risingwave_compactor.metadata.name}:6660",
+            "--advertise-addr", "$(POD_IP):6660",
             "--prometheus-listener-addr", "0.0.0.0:1260",
             "--meta-address", "http://${kubernetes_service_v1.risingwave_meta.metadata.name}:5690",
             "--config-path", "/risingwave.toml"
           ]
+          env {
+            name = "POD_IP"
+            value_from {
+              field_ref {
+                field_path = "status.podIP"
+              }
+            }
+          }
           env {
             name  = "RUST_BACKTRACE"
             value = "full"

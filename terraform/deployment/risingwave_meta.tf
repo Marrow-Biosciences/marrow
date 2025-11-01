@@ -21,7 +21,7 @@ resource "kubernetes_deployment_v1" "risingwave_meta" {
           image = "${var.region}-docker.pkg.dev/${var.project}/${var.repository}/risingwave-meta:latest"
           args = [
             "--listen-addr", "0.0.0.0:5690",
-            "--advertise-addr", "${kubernetes_service_v1.risingwave_meta.metadata.name}:5690",
+            "--advertise-addr", "$(POD_IP):5690",
             "--dashboard-host", "0.0.0.0:5691",
             "--prometheus-host", "0.0.0.0:1250",
             "--backend", "sql",
@@ -30,6 +30,14 @@ resource "kubernetes_deployment_v1" "risingwave_meta" {
             "--data-directory", "hummock_001",
             "--config-path", "/risingwave.toml"
           ]
+          env {
+            name = "POD_IP"
+            value_from {
+              field_ref {
+                field_path = "status.podIP"
+              }
+            }
+          }
           env {
             name  = "RUST_BACKTRACE"
             value = "full"

@@ -3,7 +3,7 @@ resource "kubernetes_deployment_v1" "risingwave_frontend" {
     name = "risingwave-frontend-deployment"
   }
   spec {
-    replicas = var.risingwave_frontend_deployment_replicas
+    replicas = 1
     selector {
       match_labels = {
         app = "risingwave-frontend-app"
@@ -23,10 +23,18 @@ resource "kubernetes_deployment_v1" "risingwave_frontend" {
             "frontend-node",
             "--listen-addr", "0.0.0.0:4566",
             "--meta-addr", "http://${kubernetes_service_v1.risingwave_meta.metadata.name}:5690",
-            "--advertise-addr", "${kubernetes_service_v1.risingwave_frontend.metadata.name}:4566",
+            "--advertise-addr", "$(POD_IP):4566",
             "--config-path", "/risingwave.toml",
             "--prometheus-listener-addr", "0.0.0.0:2222"
           ]
+          env {
+            name = "POD_IP"
+            value_from {
+              field_ref {
+                field_path = "status.podIP"
+              }
+            }
+          }
           env {
             name  = "RUST_BACKTRACE"
             value = "full"
