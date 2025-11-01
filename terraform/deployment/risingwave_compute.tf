@@ -33,7 +33,7 @@ resource "kubernetes_deployment_v1" "risingwave_compute" {
             "--listen-addr", "0.0.0.0:5688",
             "--advertise-addr", "$(POD_IP):5688",
             "--prometheus-listener-addr", "0.0.0.0:1222",
-            "--meta-address", "http://${kubernetes_service_v1.risingwave_meta.metadata.name}:5690",
+            "--meta-address", "http://${kubernetes_service_v1.risingwave_meta.metadata[0].name}:5690",
             "--config-path", "/risingwave.toml"
           ]
           env {

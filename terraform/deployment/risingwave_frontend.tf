@@ -22,7 +22,7 @@ resource "kubernetes_deployment_v1" "risingwave_frontend" {
           args = [
             "frontend-node",
             "--listen-addr", "0.0.0.0:4566",
-            "--meta-addr", "http://${kubernetes_service_v1.risingwave_meta.metadata.name}:5690",
+            "--meta-addr", "http://${kubernetes_service_v1.risingwave_meta.metadata[0].name}:5690",
             "--advertise-addr", "$(POD_IP):4566",
             "--config-path", "/risingwave.toml",
             "--prometheus-listener-addr", "0.0.0.0:2222"
