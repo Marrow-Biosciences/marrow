@@ -1,4 +1,3 @@
-/.bazelrc.local
 /.env.keys
 /bazel-bin
 /bazel-marrow
@@ -6,4 +5,5 @@
 /bazel-testlogs
 /MODULE.bazel.lock
 /rust-project.json
+/user.bazelrc
 target/

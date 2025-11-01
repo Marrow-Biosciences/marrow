@@ -1,3 +1,4 @@
+import %workspace%/tools/preset.bazelrc
 build --bes_results_url=https://marrowbiosciences.buildbuddy.io/invocation/
 build --bes_backend=grpcs://marrowbiosciences.buildbuddy.io
 build:ci --compilation_mode=opt
@@ -9,4 +10,4 @@ build --remote_timeout=10m
 build --noslim_profile
 build --@rules_rust//rust/settings:extra_rustc_flag=-Zmacro-backtrace
 build --@rules_rust//rust/toolchain/channel=nightly
-try-import %workspace%/.bazelrc.local
+try-import %workspace%/user.bazelrc

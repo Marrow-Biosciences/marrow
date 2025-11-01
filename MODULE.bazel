@@ -1,5 +1,7 @@
 module(name = "marrow", version = "0.0.0")
+bazel_dep(name = "bazelrc-preset.bzl", version = "1.5.0")
 bazel_dep(name = "protobuf", version = "32.1")
+bazel_dep(name = "rules_foreign_cc", version = "0.15.1")
 bazel_dep(name = "rules_oci", version = "2.2.6")
 single_version_override(module_name = "rules_oci", patches = ["//patches:rules_oci.patch"])
 bazel_dep(name = "rules_rust", version = "0.66.0")
@@ -37,13 +39,15 @@ rust_host_tools = use_extension("@rules_rust//rust:extensions.bzl", "rust_host_t
 rust_host_tools.host_tools(name = "rust_host_tools_nightly", edition = "2024", version = "nightly")
 use_repo(rust_host_tools, "rust_host_tools_nightly")
 crate = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
-inject_repo(crate, "marrow", "protobuf", "risingwave")
+inject_repo(crate, "marrow", "protobuf", "risingwave", "rules_foreign_cc")
 crate.from_cargo(name = "crates_risingwave", cargo_lockfile = "//risingwave:Cargo.lock", manifests = ["//risingwave:Cargo.toml"], host_tools = "@rust_host_tools_nightly")
+crate.annotation(crate = "faiss-sys", repositories = ["crates_risingwave"], build_script_data = ["@rules_foreign_cc//toolchains:current_cmake_toolchain"], build_script_env = {"CMAKE": "$${pwd}/$(CMAKE)"}, build_script_toolchains = ["@rules_foreign_cc//toolchains:current_cmake_toolchain"])  # https://github.com/bazel-contrib/rules_foreign_cc/blob/0.15.1/examples/MODULE.bazel#L46-L57
 crate.annotation(crate = "gcp-bigquery-client", repositories = ["crates_risingwave"], patches = ["//patches:gcp_bigquery_client.patch"])
 crate.annotation(crate = "jsonschema-transpiler", repositories = ["crates_risingwave"], gen_build_script = "off")  # Build script is only for testing purpose
 crate.annotation(crate = "lru", version = "0.7.6", repositories = ["crates_risingwave"], patches = ["//patches:lru.patch"])
 crate.annotation(crate = "otlp-embedded", repositories = ["crates_risingwave"], build_script_tools = ["@protobuf//:protoc"], build_script_env = {"PROTOC": "$(execpath @protobuf//:protoc)"})
 crate.annotation(crate = "pulsar", repositories = ["crates_risingwave"], build_script_tools = ["@protobuf//:protoc"], build_script_env = {"PROTOC": "$(execpath @protobuf//:protoc)"})
+crate.annotation(crate = "rdkafka-sys", repositories = ["crates_risingwave"], build_script_data = ["@rules_foreign_cc//toolchains:current_cmake_toolchain"], build_script_env = {"CMAKE": "$${pwd}/$(CMAKE)"}, build_script_toolchains = ["@rules_foreign_cc//toolchains:current_cmake_toolchain"])  # https://github.com/bazel-contrib/rules_foreign_cc/blob/0.15.1/examples/MODULE.bazel#L46-L57
 crate.annotation(
   crate = "risingwave_cmd",
   repositories = ["crates_risingwave"],
