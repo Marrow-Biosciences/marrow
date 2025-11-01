@@ -114,7 +114,7 @@ resource "kubernetes_service_v1" "risingwave_meta" {
 
 resource "kubernetes_service_v1" "risingwave_dashboard" {
   metadata {
-    name = "risingwave-dashboard"
+    name = "risingwave-dashboard-service"
   }
   spec {
     selector = {
