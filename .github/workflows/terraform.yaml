@@ -2,6 +2,7 @@ name: terraform
 on:
   push:
     paths: ["terraform/**", ".github/workflows/terraform.yaml"]
+  workflow_dispatch:
 jobs:
   plan:
     runs-on: blacksmith-2vcpu-ubuntu-2404-arm
