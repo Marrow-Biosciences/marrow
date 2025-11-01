@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: Install dotenvx
-        run: curl -L -o dotenvx.tar.gz "https://github.com/dotenvx/dotenvx/releases/latest/download/dotenvx-$(uname -s)-$(uname -m).tar.gz" && tar -xzf dotenvx.tar.gz
+        run: curl -L -o dotenvx.tar.gz https://github.com/dotenvx/dotenvx/releases/latest/download/dotenvx-linux-arm64.tar.gz && tar -xzf dotenvx.tar.gz
       - uses: google-github-actions/auth@v2
         with:
           project_id: compute-cluster-476800
@@ -40,7 +40,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: Install dotenvx
-        run: curl -L -o dotenvx.tar.gz "https://github.com/dotenvx/dotenvx/releases/latest/download/dotenvx-$(uname -s)-$(uname -m).tar.gz" && tar -xzf dotenvx.tar.gz
+        run: curl -L -o dotenvx.tar.gz https://github.com/dotenvx/dotenvx/releases/latest/download/dotenvx-linux-arm64.tar.gz && tar -xzf dotenvx.tar.gz
       - uses: google-github-actions/auth@v2
         with:
           project_id: compute-cluster-476800
