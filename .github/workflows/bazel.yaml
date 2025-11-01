@@ -2,7 +2,7 @@ name: bazel
 on: push
 jobs:
   build-test-deploy:
-    runs-on: blacksmith-8vcpu-ubuntu-2204
+    runs-on: blacksmith-8vcpu-ubuntu-2204-arm
     permissions:
       contents: read
       id-token: write
