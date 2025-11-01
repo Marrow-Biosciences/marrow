@@ -36,7 +36,6 @@ jobs:
           project_id: compute-cluster-476800
       - name: Authenticate
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        with:
         run: gcloud auth configure-docker northamerica-northeast2-docker.pkg.dev
       - name: Deploy
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
