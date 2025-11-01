@@ -19,11 +19,11 @@ jobs:
         with:
           project_id: compute-cluster-476800
           workload_identity_provider: projects/22128417358/locations/global/workloadIdentityPools/github/providers/marrow
-      # - uses: google-github-actions/get-gke-credentials@v3
-      #   with:
-      #     project_id: compute-cluster-476800
-      #     location: us-central1
-      #     cluster_name: marrow-cluster
+      - uses: google-github-actions/get-gke-credentials@v3
+        with:
+          project_id: compute-cluster-476800
+          location: northamerica-northeast2
+          cluster_name: marrow-cluster
       - uses: hashicorp/setup-terraform@v3
       - name: Terraform Init
         working-directory: terraform
@@ -48,11 +48,11 @@ jobs:
         with:
           project_id: compute-cluster-476800
           workload_identity_provider: projects/22128417358/locations/global/workloadIdentityPools/github/providers/marrow
-      # - uses: google-github-actions/get-gke-credentials@v3
-      #   with:
-      #     project_id: compute-cluster-476800
-      #     location: us-central1
-      #     cluster_name: marrow-cluster
+      - uses: google-github-actions/get-gke-credentials@v3
+        with:
+          project_id: compute-cluster-476800
+          location: northamerica-northeast2
+          cluster_name: marrow-cluster
       - uses: hashicorp/setup-terraform@v3
       - name: Terraform Init
         working-directory: terraform
