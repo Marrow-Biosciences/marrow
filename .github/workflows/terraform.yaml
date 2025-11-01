@@ -1,7 +1,5 @@
 name: terraform
 on:
-  pull_request:
-    paths: ["terraform/**", ".github/workflows/terraform.yaml"]
   push:
     paths: ["terraform/**", ".github/workflows/terraform.yaml"]
 jobs:
@@ -36,7 +34,7 @@ jobs:
   apply:
     runs-on: blacksmith-2vcpu-ubuntu-2404-arm
     needs: plan
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/main'
     permissions:
       contents: read
       id-token: write
