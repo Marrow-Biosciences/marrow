@@ -17,10 +17,9 @@ resource "kubernetes_deployment_v1" "risingwave_compute" {
       }
       spec {
         node_selector = {
-          "cloud.google.com/compute-class"  = "Scale-Out"
-          "cloud.google.com/gke-spot"       = "true"
-          "cloud.google.com/machine-family" = "T2A"
-          "kubernetes.io/arch"              = "arm64"
+          "cloud.google.com/compute-class" = "Scale-Out"
+          "cloud.google.com/gke-spot"      = "true"
+          "kubernetes.io/arch"             = "arm64"
         }
         toleration {
           key      = "cloud.google.com/gke-spot"
