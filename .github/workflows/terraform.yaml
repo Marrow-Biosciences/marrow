@@ -1,5 +1,9 @@
 name: terraform
-on: [pull_request, push]
+on:
+  pull_request:
+    paths: ["terraform/**", ".github/workflows/terraform.yaml"]
+  push:
+    paths: ["terraform/**", ".github/workflows/terraform.yaml"]
 jobs:
   plan:
     runs-on: blacksmith-2vcpu-ubuntu-2404-arm
