@@ -6,9 +6,9 @@ module "artifact_registry" {
   repository_id = var.repository
 }
 
-# module "deployment" {
-#   source     = "./deployment"
-#   project    = var.project
-#   region     = var.region
-#   repository = var.repository
-# }
+module "deployment" {
+  source     = "./deployment"
+  project    = var.project
+  region     = var.region
+  repository = var.repository
+}
