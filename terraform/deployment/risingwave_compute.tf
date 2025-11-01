@@ -170,7 +170,7 @@ resource "kubernetes_service_v1" "risingwave_compute" {
   }
 }
 
-resource "kubernetes_manifest_v1" "risingwave_compute" {
+resource "kubernetes_manifest" "risingwave_compute" {
   manifest = {
     apiVersion = "monitoring.googleapis.com/v1"
     kind       = "PodMonitoring"
