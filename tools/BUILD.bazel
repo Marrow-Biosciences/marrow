@@ -1,3 +1,16 @@
 load("@bazelrc-preset.bzl", "bazelrc_preset")
+load("@rules_multirun//:defs.bzl", "multirun")
 
 bazelrc_preset(name = "preset", strict = True)
+
+multirun(
+  name = "push_all",
+  commands = [
+    "//risingwave/bin:compactor_push_command",
+    "//risingwave/bin:compute_push_command",
+    "//risingwave/bin:frontend_push_command",
+    "//risingwave/bin:glibc_test_push_command",
+    "//risingwave/bin:meta_push_command",
+  ],
+  jobs = 0,
+)

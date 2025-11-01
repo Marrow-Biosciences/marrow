@@ -39,6 +39,6 @@ jobs:
         run: gcloud auth configure-docker northamerica-northeast2-docker.pkg.dev
       - name: Deploy
         if: github.ref == 'refs/heads/main'
-        run: ./dotenvx run -- bash -c 'bazel run --config=ci --remote_header=x-buildbuddy-api-key=$BUILDBUDDY_API_KEY //:push_all'
+        run: ./dotenvx run -- bash -c 'bazel run --config=ci --remote_header=x-buildbuddy-api-key=$BUILDBUDDY_API_KEY //tools:push_all'
         env:
           DOTENV_PRIVATE_KEY_CI: ${{ secrets.DOTENV_PRIVATE_KEY_CI }}
