@@ -8,6 +8,8 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v5
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y libblas-dev liblapack-dev
       - name: Install dotenvx
         run: curl -L -o dotenvx.tar.gz https://github.com/dotenvx/dotenvx/releases/latest/download/dotenvx-linux-arm64.tar.gz && tar -xzf dotenvx.tar.gz
       - uses: bazel-contrib/setup-bazel@0.15.0
