@@ -94,19 +94,19 @@ resource "kubernetes_service_v1" "risingwave_meta" {
       app = kubernetes_deployment_v1.risingwave_meta.spec[0].selector[0].match_labels.app
     }
     port {
-      name        = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].containers[0].ports[0].name
-      port        = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].containers[0].ports[0].container_port
-      target_port = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].containers[0].ports[0].name
+      name        = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].container[0].ports[0].name
+      port        = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].container[0].ports[0].container_port
+      target_port = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].container[0].ports[0].name
     }
     port {
-      name        = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].containers[0].ports[1].name
-      port        = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].containers[0].ports[1].container_port
-      target_port = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].containers[0].ports[1].name
+      name        = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].container[0].ports[1].name
+      port        = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].container[0].ports[1].container_port
+      target_port = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].container[0].ports[1].name
     }
     port {
-      name        = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].containers[0].ports[2].name
-      port        = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].containers[0].ports[2].container_port
-      target_port = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].containers[0].ports[2].name
+      name        = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].container[0].ports[2].name
+      port        = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].container[0].ports[2].container_port
+      target_port = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].container[0].ports[2].name
     }
     type = "ClusterIP"
   }
@@ -121,9 +121,9 @@ resource "kubernetes_service_v1" "risingwave_dashboard" {
       app = kubernetes_deployment_v1.risingwave_meta.spec[0].selector[0].match_labels.app
     }
     port {
-      name        = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].containers[0].ports[2].name
-      port        = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].containers[0].ports[2].container_port
-      target_port = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].containers[0].ports[2].name
+      name        = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].container[0].ports[2].name
+      port        = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].container[0].ports[2].container_port
+      target_port = kubernetes_deployment_v1.risingwave_meta.spec[0].template[0].spec[0].container[0].ports[2].name
     }
     type = "LoadBalancer"
   }

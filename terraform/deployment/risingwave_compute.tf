@@ -157,14 +157,14 @@ resource "kubernetes_service_v1" "risingwave_compute" {
       app = kubernetes_deployment_v1.risingwave_compute.spec[0].selector[0].match_labels.app
     }
     port {
-      name        = kubernetes_deployment_v1.risingwave_compute.spec[0].template[0].spec[0].containers[0].ports[0].name
-      port        = kubernetes_deployment_v1.risingwave_compute.spec[0].template[0].spec[0].containers[0].ports[0].container_port
-      target_port = kubernetes_deployment_v1.risingwave_compute.spec[0].template[0].spec[0].containers[0].ports[0].name
+      name        = kubernetes_deployment_v1.risingwave_compute.spec[0].template[0].spec[0].container[0].ports[0].name
+      port        = kubernetes_deployment_v1.risingwave_compute.spec[0].template[0].spec[0].container[0].ports[0].container_port
+      target_port = kubernetes_deployment_v1.risingwave_compute.spec[0].template[0].spec[0].container[0].ports[0].name
     }
     port {
-      name        = kubernetes_deployment_v1.risingwave_compute.spec[0].template[0].spec[0].containers[0].ports[1].name
-      port        = kubernetes_deployment_v1.risingwave_compute.spec[0].template[0].spec[0].containers[0].ports[1].container_port
-      target_port = kubernetes_deployment_v1.risingwave_compute.spec[0].template[0].spec[0].containers[0].ports[1].name
+      name        = kubernetes_deployment_v1.risingwave_compute.spec[0].template[0].spec[0].container[0].ports[1].name
+      port        = kubernetes_deployment_v1.risingwave_compute.spec[0].template[0].spec[0].container[0].ports[1].container_port
+      target_port = kubernetes_deployment_v1.risingwave_compute.spec[0].template[0].spec[0].container[0].ports[1].name
     }
     type = "ClusterIP"
   }
