@@ -23,11 +23,6 @@ rust.toolchain(
   edition = "2024",
   versions = ["nightly/2025-10-17"],
   sha256s = {
-    "2025-10-17/rustc-nightly-x86_64-unknown-linux-gnu.tar.xz": "4abe15cf6edf3b0ad0c805aaade58db830a967da4e9955239ad6abc1ca62719c",
-    "2025-10-17/clippy-nightly-x86_64-unknown-linux-gnu.tar.xz": "37e909be7b3ffb405a608a7c74dc0c112752d487ab047f26210a8678d9569923",
-    "2025-10-17/cargo-nightly-x86_64-unknown-linux-gnu.tar.xz": "3e30eaf6e96b38826f73dc2ff59e9868fe9b23358b24978a84a77fb3efbe579d",
-    "2025-10-17/llvm-tools-nightly-x86_64-unknown-linux-gnu.tar.xz": "ca98d6f9ed9d49509c628cb4e0fbf853f177a52669563368e16a75d98d0a7e56",
-    "2025-10-17/rust-std-nightly-x86_64-unknown-linux-gnu.tar.xz": "05ff1c760f9e1da9fb45a27276ea177346c43e96125c4b35b800cb3c8c563a4b",
     "2025-10-17/rustc-nightly-aarch64-apple-darwin.tar.xz": "b38abb0d4f48b109d5f9e7592ffa47d360d36ef716e0d04f124184278e79a727",
     "2025-10-17/clippy-nightly-aarch64-apple-darwin.tar.xz": "ff17b15bdb9134af54acd7024bb2d5c9157bf0023e536295b5a6ded4e1fd7c6c",
     "2025-10-17/cargo-nightly-aarch64-apple-darwin.tar.xz": "a393b773715bd0555016489df699700a0e412ba4e5b0ddf74a14b70851395d58",

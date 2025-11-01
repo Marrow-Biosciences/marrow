@@ -38,7 +38,7 @@ jobs:
           project_id: compute-cluster-476800
       - name: Authenticate
         if: github.ref == 'refs/heads/main'
-        run: gcloud auth configure-docker northamerica-northeast2-docker.pkg.dev
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
       - name: Deploy
         if: github.ref == 'refs/heads/main'
         run: ./dotenvx run -- bash -c 'bazel run --config=ci --remote_header=x-buildbuddy-api-key=$BUILDBUDDY_API_KEY //tools:push_all'

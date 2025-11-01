@@ -5,7 +5,7 @@ variable "project" {
 
 variable "region" {
   type    = string
-  default = "northamerica-northeast2"
+  default = "us-central1"
 }
 
 variable "repository" {

@@ -5,7 +5,7 @@ All infrastructure is managed using Terraform. The exception is the bucket backi
 ## Default Configuration
 
 * Use project ID `compute-cluster-476800`
-* Use region `northamerica-northeast2`
+* Use region `us-central1`
 
 ## Changing the Infrastructure
 
@@ -25,14 +25,13 @@ See details in [Direct Workload Identity Federation](https://github.com/google-g
 
 #### Example: Artifact Registry
 
-The following declaration materialized an Artifact Registry repository named `marrow` in the `northamerica-northeast2` region of the `compute-cluster-476800` project.
+The following declaration materialized an Artifact Registry repository named `marrow` in the `us-central1` region of the `compute-cluster-476800` project.
 
 ```terraform
 module "artifact_registry" {
   source = "GoogleCloudPlatform/artifact-registry/google"
-
   project_id    = "compute-cluster-476800"
-  location      = "northamerica-northeast2"
+  location      = "us-central1"
   format        = "DOCKER"
   repository_id = "marrow"
 }
@@ -41,7 +40,7 @@ module "artifact_registry" {
 The corresponding IAM policy binding follows:
 
 ```bash
-~/marrow/terraform> gcloud artifacts repositories add-iam-policy-binding marrow --location=northamerica-northeast2 --project=compute-cluster-476800 --role=roles/artifactregistry.admin --member=principalSet://iam.googleapis.com/projects/22128417358/locations/global/workloadIdentityPools/github/attribute.repository/Marrow-Biosciences/marrow
+~/marrow/terraform> gcloud artifacts repositories add-iam-policy-binding marrow --location=us-central1 --project=compute-cluster-476800 --role=roles/artifactregistry.admin --member=principalSet://iam.googleapis.com/projects/22128417358/locations/global/workloadIdentityPools/github/attribute.repository/Marrow-Biosciences/marrow
 Updated IAM policy for repository [marrow].
 bindings:
 - members:
