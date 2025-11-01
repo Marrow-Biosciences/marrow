@@ -3,6 +3,9 @@ on: push
 jobs:
   build-test-deploy:
     runs-on: blacksmith-8vcpu-ubuntu-2204
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v5
       - name: Install dotenvx
