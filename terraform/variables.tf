@@ -12,3 +12,8 @@ variable "repository" {
   type    = string
   default = "marrow"
 }
+
+variable "risingwave_metadata_dsn" {
+  type      = string
+  sensitive = true
+}
