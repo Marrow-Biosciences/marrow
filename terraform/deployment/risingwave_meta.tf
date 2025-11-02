@@ -30,8 +30,8 @@ resource "kubernetes_deployment_v1" "risingwave_meta" {
             "--prometheus-host", "0.0.0.0:1250",
             "--backend", "sql",
             "--sql-endpoint", var.risingwave_metadata_dsn,
-            "--state-store", "hummock+${var.risingwave_state_uri}",
-            "--data-directory", "hummock_001",
+            "--state-store", "${var.risingwave_state_uri}",
+            "--data-directory", "risingwave_meta_data",
             "--config-path", "/risingwave.toml"
           ]
           env {
