@@ -5,6 +5,7 @@ resource "google_compute_network" "marrow" {
 
 resource "google_compute_subnetwork" "marrow" {
   name          = "marrow-subnet"
+  region        = var.region
   network       = google_compute_network.marrow.id
   ip_cidr_range = "10.0.0.0/16"
 }
