@@ -25,12 +25,12 @@ resource "kubernetes_deployment_v1" "risingwave_glibc_test" {
           image = "${var.region}-docker.pkg.dev/${var.project}/${var.repository}/risingwave-glibc_test:latest"
           resources {
             requests = {
-              cpu    = "125m"
-              memory = "128Mi"
+              cpu    = "10m"
+              memory = "32Mi"
             }
             limits = {
-              cpu    = "250m"
-              memory = "256Mi"
+              cpu    = "20m"
+              memory = "64Mi"
             }
           }
         }
@@ -39,7 +39,7 @@ resource "kubernetes_deployment_v1" "risingwave_glibc_test" {
   }
 }
 
-resource "kubernetes_horizontal_pod_autoscaler_v2" "risingwave_glibc_test" {
+resource "kubernetes_horizontal_pod_autoscaler_v2beta2" "risingwave_glibc_test" {
   metadata {
     name = "risingwave-glibc-test-hpa"
   }
