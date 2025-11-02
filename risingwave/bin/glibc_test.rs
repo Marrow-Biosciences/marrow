@@ -12,7 +12,10 @@ use tap::prelude::*;
 use tracing::{Level, info};
 
 fn main() {
-  tracing_subscriber::fmt().with_max_level(Level::INFO).init();
+  tracing_subscriber::fmt()
+    .with_ansi(false)
+    .with_max_level(Level::INFO)
+    .init();
   vars().into_iter().for_each(|(key, value)| {
     info!("{key}: {value}");
   });
