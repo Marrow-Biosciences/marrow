@@ -43,6 +43,7 @@ crate.annotation(crate = "risingwave_common", repositories = ["crates_risingwave
 crate.annotation(crate = "risingwave_connector", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_connector.patch"])
 crate.annotation(crate = "risingwave_connector_codec", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_connector_codec.patch"], gen_build_script = "off")  # Build script is only for testing purpose
 crate.annotation(crate = "risingwave_frontend", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_frontend.patch"])
+crate.annotation(crate = "risingwave_license", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_license.patch"])
 crate.annotation(crate = "risingwave_meta", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_meta.patch"])
 crate.annotation(crate = "risingwave_meta_model", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_meta_model.patch"])
 crate.annotation(crate = "risingwave_object_store", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_object_store.patch"])

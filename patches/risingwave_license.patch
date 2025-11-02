@@ -1,0 +1,5 @@
+--- src/feature.rs
++++ src/feature.rs
+@@ -117,1 +117,1 @@
+-        self.check_available_with(LicenseManager::get())
++        Ok(())

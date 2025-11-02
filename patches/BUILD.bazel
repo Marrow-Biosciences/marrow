@@ -7,6 +7,7 @@ exports_files([
   "risingwave_connector.patch",
   "risingwave_connector_codec.patch",
   "risingwave_frontend.patch",
+  "risingwave_license.patch",
   "risingwave_meta.patch",
   "risingwave_meta_model.patch",
   "risingwave_object_store.patch",
