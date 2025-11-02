@@ -30,7 +30,7 @@ resource "kubernetes_deployment_v1" "risingwave_meta" {
             "--prometheus-host", "0.0.0.0:1250",
             "--backend", "sql",
             "--sql-endpoint", var.risingwave_metadata_dsn,
-            "--state-store", "${var.risingwave_state_uri}",
+            "--state-store", var.risingwave_state_uri,
             "--data-directory", "risingwave_meta_data",
             "--config-path", "/risingwave.toml"
           ]
@@ -41,10 +41,6 @@ resource "kubernetes_deployment_v1" "risingwave_meta" {
                 field_path = "status.podIP"
               }
             }
-          }
-          env {
-            name  = "RUST_LOG"
-            value = "debug"
           }
           env {
             name  = "RUST_BACKTRACE"
