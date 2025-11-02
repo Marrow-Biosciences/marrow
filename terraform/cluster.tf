@@ -10,8 +10,9 @@ resource "google_compute_subnetwork" "marrow" {
 }
 
 resource "google_container_cluster" "marrow" {
-  name                = "marrow-cluster"
-  location            = var.region
+  name = "marrow-cluster"
+  # location            = var.region
+  location            = "northamerica-northeast2"
   network             = google_compute_network.marrow.id
   subnetwork          = google_compute_subnetwork.marrow.id
   deletion_protection = false
