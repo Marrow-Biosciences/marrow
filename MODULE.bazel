@@ -87,7 +87,7 @@ crate.annotation(
   ],
   patches = ["//patches:risingwave_pb.patch"],
 )
-crate.annotation(crate = "sea-orm-migration", repositories = ["crates_risingwave"], crate_features = ["sqlx-sqlite"])
+crate.annotation(crate = "sea-orm-migration", repositories = ["crates_risingwave"], crate_features = ["sqlx-postgres", "sqlx-sqlite"])
 crate.spec(package = "rstest", version = "0.26.1", default_features = False, features = ["async-timeout"])
 crate.spec(package = "similar-asserts", version = "1.7.0")
 crate.spec(package = "tap", version = "1.0.1")
