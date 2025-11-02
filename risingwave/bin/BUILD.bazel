@@ -14,16 +14,16 @@ DEPS = [
 ENV = {
   # See https://github.com/bazel-contrib/rules_distroless/issues/68
   # BLAS and LAPACK depend on post-install update-alternatives command to symlink shared libraries to top-level
-  # So add their directories to LD_LIBRARY_PATH such that they are directly discoverable
-  "LD_LIBRARY_PATH": "/usr/lib/aarch64-linux-gnu/blas:/usr/lib/aarch64-linux-gnu/lapack"
+  # So add their directories to PATH such that they are directly discoverable
+  "PATH": "$PATH:/usr/lib/aarch64-linux-gnu/blas:/usr/lib/aarch64-linux-gnu/lapack"
 }
 
 platform_transition_filegroup(name = "bookworm_tar", target_platform = "//platforms:container", srcs = ["@bookworm//:flat"])
-oci_image(name = "base_image", base = "@distroless_cc", tars = [":bookworm_tar"])
+oci_image(name = "base_image", base = "@distroless_cc", tars = [":bookworm_tar"], env = ENV)
 
 rust_binary(name = "compactor", srcs = ["compactor.rs"], deps = DEPS)
 tar(name = "compactor_tar", srcs = [":compactor"])
-oci_image(name = "compactor_image", base = ":base_image", tars = [":compactor_tar"], entrypoint = ["/risingwave/bin/compactor"], env = ENV)
+oci_image(name = "compactor_image", base = ":base_image", tars = [":compactor_tar"], entrypoint = ["/risingwave/bin/compactor"])
 oci_image_index(name = "compactor_index", images = [":compactor_image"])
 oci_load(name = "compactor_load", format = "oci", image = ":compactor_index", repo_tags = ["risingwave-compactor:latest"])
 oci_push(name = "compactor_push", image = ":compactor_index", repository = "us-central1-docker.pkg.dev/compute-cluster-476800/marrow/risingwave-compactor", remote_tags = ["latest"])
@@ -31,7 +31,7 @@ command(name = "compactor_push_command", command = "compactor_push", visibility 
 
 rust_binary(name = "compute", srcs = ["compute.rs"], deps = DEPS)
 tar(name = "compute_tar", srcs = [":compute"])
-oci_image(name = "compute_image", base = ":base_image", tars = [":compute_tar"], entrypoint = ["/risingwave/bin/compute"], env = ENV)
+oci_image(name = "compute_image", base = ":base_image", tars = [":compute_tar"], entrypoint = ["/risingwave/bin/compute"])
 oci_image_index(name = "compute_index", images = [":compute_image"])
 oci_load(name = "compute_load", format = "oci", image = ":compute_index", repo_tags = ["risingwave-compute:latest"])
 oci_push(name = "compute_push", image = ":compute_index", repository = "us-central1-docker.pkg.dev/compute-cluster-476800/marrow/risingwave-compute", remote_tags = ["latest"])
@@ -39,7 +39,7 @@ command(name = "compute_push_command", command = "compute_push", visibility = ["
 
 rust_binary(name = "frontend", srcs = ["frontend.rs"], deps = DEPS)
 tar(name = "frontend_tar", srcs = [":frontend"])
-oci_image(name = "frontend_image", base = ":base_image", tars = [":frontend_tar"], entrypoint = ["/risingwave/bin/frontend"], env = ENV)
+oci_image(name = "frontend_image", base = ":base_image", tars = [":frontend_tar"], entrypoint = ["/risingwave/bin/frontend"])
 oci_image_index(name = "frontend_index", images = [":frontend_image"])
 oci_load(name = "frontend_load", format = "oci", image = ":frontend_index", repo_tags = ["risingwave-frontend:latest"])
 oci_push(name = "frontend_push", image = ":frontend_index", repository = "us-central1-docker.pkg.dev/compute-cluster-476800/marrow/risingwave-frontend", remote_tags = ["latest"])
@@ -47,7 +47,7 @@ command(name = "frontend_push_command", command = "frontend_push", visibility = 
 
 rust_binary(name = "glibc_test", srcs = ["glibc_test.rs"], deps = ["@crates//:tap", "@crates//:tracing", "@crates//:tracing-subscriber"])
 tar(name = "glibc_test_tar", srcs = [":glibc_test"])
-oci_image(name = "glibc_test_image", base = ":base_image", tars = [":glibc_test_tar"], entrypoint = ["/risingwave/bin/glibc_test"], env = ENV)
+oci_image(name = "glibc_test_image", base = ":base_image", tars = [":glibc_test_tar"], entrypoint = ["/risingwave/bin/glibc_test"])
 oci_image_index(name = "glibc_test_index", images = [":glibc_test_image"])
 oci_load(name = "glibc_test_load", format = "oci", image = ":glibc_test_index", repo_tags = ["risingwave-glibc_test:latest"])
 oci_push(name = "glibc_test_push", image = ":glibc_test_index", repository = "us-central1-docker.pkg.dev/compute-cluster-476800/marrow/risingwave-glibc_test", remote_tags = ["latest"])
@@ -55,7 +55,7 @@ command(name = "glibc_test_push_command", command = "glibc_test_push", visibilit
 
 rust_binary(name = "meta", srcs = ["meta.rs"], deps = DEPS)
 tar(name = "meta_tar", srcs = [":meta"])
-oci_image(name = "meta_image", base = ":base_image", tars = [":meta_tar"], entrypoint = ["/risingwave/bin/meta"], env = ENV)
+oci_image(name = "meta_image", base = ":base_image", tars = [":meta_tar"], entrypoint = ["/risingwave/bin/meta"])
 oci_image_index(name = "meta_index", images = [":meta_image"])
 oci_load(name = "meta_load", format = "oci", image = ":meta_index", repo_tags = ["risingwave-meta:latest"])
 oci_push(name = "meta_push", image = ":meta_index", repository = "us-central1-docker.pkg.dev/compute-cluster-476800/marrow/risingwave-meta", remote_tags = ["latest"])
