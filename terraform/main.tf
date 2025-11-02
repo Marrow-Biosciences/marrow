@@ -12,5 +12,6 @@ module "deployment" {
   region                  = var.region
   repository              = var.repository
   risingwave_metadata_dsn = var.risingwave_metadata_dsn
-  risingwave_state_uri    = "gs://${google_storage_bucket.risingwave_state.name}"
+  # RisingWave uses gcs:// scheme in place of the common gs:// for Google Cloud Storage
+  risingwave_state_uri = "gcs://${google_storage_bucket.risingwave_state.name}"
 }
