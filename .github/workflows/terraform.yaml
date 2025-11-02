@@ -22,7 +22,7 @@ jobs:
       - uses: google-github-actions/get-gke-credentials@v3
         with:
           project_id: compute-cluster-476800
-          location: northamerica-northeast2
+          location: us-central1
           cluster_name: marrow-cluster
       - uses: hashicorp/setup-terraform@v3
       - name: Terraform Init
@@ -51,7 +51,7 @@ jobs:
       - uses: google-github-actions/get-gke-credentials@v3
         with:
           project_id: compute-cluster-476800
-          location: northamerica-northeast2
+          location: us-central1
           cluster_name: marrow-cluster
       - uses: hashicorp/setup-terraform@v3
       - name: Terraform Init
