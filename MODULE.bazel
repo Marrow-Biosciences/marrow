@@ -19,17 +19,7 @@ http_archive(
   patches = ["//patches:risingwave_proto_expr.patch"],
 )
 rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
-rust.toolchain(
-  edition = "2024",
-  versions = ["nightly/2025-10-17"],
-  sha256s = {
-    "2025-10-17/rustc-nightly-aarch64-apple-darwin.tar.xz": "b38abb0d4f48b109d5f9e7592ffa47d360d36ef716e0d04f124184278e79a727",
-    "2025-10-17/clippy-nightly-aarch64-apple-darwin.tar.xz": "ff17b15bdb9134af54acd7024bb2d5c9157bf0023e536295b5a6ded4e1fd7c6c",
-    "2025-10-17/cargo-nightly-aarch64-apple-darwin.tar.xz": "a393b773715bd0555016489df699700a0e412ba4e5b0ddf74a14b70851395d58",
-    "2025-10-17/llvm-tools-nightly-aarch64-apple-darwin.tar.xz": "cfd83784b86c4d92fd6ae846c4c4f6f9ac1a6b8c3412333cd90cf280043adc6b",
-    "2025-10-17/rust-std-nightly-aarch64-apple-darwin.tar.xz": "d4ce453786afcd73fba3f9d21801dade19a86c3362e76261b326246941b4240b",
-  }
-)
+rust.toolchain(edition = "2024", versions = ["nightly/2025-11-01"])
 use_repo(rust, "rust_toolchains")
 register_toolchains("@rust_toolchains//:all")
 rust_host_tools = use_extension("@rules_rust//rust:extensions.bzl", "rust_host_tools")
