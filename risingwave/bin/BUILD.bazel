@@ -1,3 +1,4 @@
+load("@bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
 load("@rules_multirun//:defs.bzl", "command")
 load("@rules_oci//oci:defs.bzl", "oci_image", "oci_image_index", "oci_load", "oci_push")
 load("@rules_rust//rust:defs.bzl", "rust_binary")
@@ -10,7 +11,8 @@ DEPS = [
   "@crates_risingwave//:tikv-jemallocator",
 ]
 
-oci_image(name = "base_image", base = "@distroless_cc", tars = ["@bookworm//:flat"], env = {"LD_LIBRARY_PATH": "/usr/lib/aarch64-linux-gnu/blas,/usr/lib/aarch64-linux-gnu/lapack"})  # https://github.com/bazel-contrib/rules_distroless/issues/68
+platform_transition_filegroup(name = "bookworm_tar", target_platform = "//platforms:container", srcs = ["@bookworm//:flat"])
+oci_image(name = "base_image", base = "@distroless_cc", tars = [":bookworm_tar"], env = {"LD_LIBRARY_PATH": "/usr/lib/aarch64-linux-gnu/blas,/usr/lib/aarch64-linux-gnu/lapack"})  # https://github.com/bazel-contrib/rules_distroless/issues/68
 
 rust_binary(name = "compactor", srcs = ["compactor.rs"], deps = DEPS)
 tar(name = "compactor_tar", srcs = [":compactor"])
@@ -36,7 +38,7 @@ oci_load(name = "frontend_load", format = "oci", image = ":frontend_index", repo
 oci_push(name = "frontend_push", image = ":frontend_index", repository = "us-central1-docker.pkg.dev/compute-cluster-476800/marrow/risingwave-frontend", remote_tags = ["latest"])
 command(name = "frontend_push_command", command = "frontend_push", visibility = ["//tools:__pkg__"])
 
-rust_binary(name = "glibc_test", srcs = ["glibc_test.rs"], deps = ["@crates//:tap"])
+rust_binary(name = "glibc_test", srcs = ["glibc_test.rs"], deps = ["@crates//:tap", "@crates//:tracing", "@crates//:tracing-subscriber"])
 tar(name = "glibc_test_tar", srcs = [":glibc_test"])
 oci_image(name = "glibc_test_image", base = ":base_image", tars = [":glibc_test_tar"], entrypoint = ["/risingwave/bin/glibc_test"])
 oci_image_index(name = "glibc_test_index", images = [":glibc_test_image"])

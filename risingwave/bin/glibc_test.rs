@@ -7,14 +7,20 @@
 ///
 /// Running this test is necessary to ensure the glibc version of the build environment is compatible with the runtime environment.
 /// Refer to the BUILD.bazel file in this directory for build configuration, including base container image.
-use std::process::Command;
+use std::{env::vars, process::Command, thread::sleep, time::Duration};
 use tap::prelude::*;
+use tracing::{Level, info};
 
 fn main() {
+  tracing_subscriber::fmt().with_max_level(Level::INFO).init();
+  vars().into_iter().for_each(|(key, value)| {
+    info!("{key}: {value}");
+  });
   Command::new("/lib/aarch64-linux-gnu/libc.so.6")
     .output()
     .expect("failed to execute process")
     .stdout
     .pipe_deref(String::from_utf8_lossy)
-    .pipe(|stdout| println!("{stdout}"));
+    .pipe(|stdout| info!("{stdout}"));
+  sleep(Duration::MAX);
 }

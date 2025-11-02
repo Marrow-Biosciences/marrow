@@ -11,12 +11,12 @@ Here are the custom native kernels we patch into the RisingWave binary.
 3. Implement the kernel in the new file and add unit tests. Build to verify correctness.
    For example, to build the `add_one` kernel:
    ```sh
-   bazel build //risingwave/kernel:add_one
+   bazel build //risingwave/kernels:add_one
    ```
 4. Run the tests to verify that the kernel works as expected.
    For example, to test the `add_one` kernel:
    ```sh
-   bazel test //risingwave/kernel:add_one_test
+   bazel test //risingwave/kernels:add_one_test
    ```
 
 ### 2. Integration

@@ -1,0 +1,1 @@
+platform(name = "container", constraint_values = ["@platforms//cpu:aarch64", "@platforms//os:linux"], visibility = ["//risingwave/bin:__pkg__"])

@@ -1,5 +1,7 @@
 module(name = "marrow", version = "0.0.0")
+bazel_dep(name = "bazel_lib", version = "3.0.0")
 bazel_dep(name = "bazelrc-preset.bzl", version = "1.5.0")
+bazel_dep(name = "platforms", version = "1.0.0")
 bazel_dep(name = "protobuf", version = "32.1")
 bazel_dep(name = "rules_distroless", version = "0.6.1")
 bazel_dep(name = "rules_foreign_cc", version = "0.15.1")
@@ -35,8 +37,8 @@ crate.annotation(crate = "lru", version = "0.7.6", repositories = ["crates_risin
 crate.annotation(crate = "otlp-embedded", repositories = ["crates_risingwave"], build_script_tools = ["@protobuf//:protoc"], build_script_env = {"PROTOC": "$(execpath @protobuf//:protoc)"})
 crate.annotation(crate = "pulsar", repositories = ["crates_risingwave"], build_script_tools = ["@protobuf//:protoc"], build_script_env = {"PROTOC": "$(execpath @protobuf//:protoc)"})
 crate.annotation(crate = "rdkafka-sys", repositories = ["crates_risingwave"], build_script_data = ["@rules_foreign_cc//toolchains:current_cmake_toolchain"], build_script_env = {"CMAKE": "$${pwd}/$(CMAKE)"}, build_script_toolchains = ["@rules_foreign_cc//toolchains:current_cmake_toolchain"])  # https://github.com/bazel-contrib/rules_foreign_cc/blob/0.15.1/examples/MODULE.bazel#L46-L57
-crate.annotation(crate = "risingwave_cmd", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_cmd.patch"], deps = ["@marrow//risingwave/kernel"])
-crate.annotation(crate = "risingwave_cmd_all", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_cmd_all.patch"], deps = ["@marrow//risingwave/kernel"], gen_all_binaries = True)  # Run standalone binary `bazel run @crates_risingwave//:risingwave_cmd_all__risingwave`
+crate.annotation(crate = "risingwave_cmd", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_cmd.patch"], deps = ["@marrow//risingwave/kernels"])
+crate.annotation(crate = "risingwave_cmd_all", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_cmd_all.patch"], deps = ["@marrow//risingwave/kernels"], gen_all_binaries = True)  # Run standalone binary `bazel run @crates_risingwave//:risingwave_cmd_all__risingwave`
 crate.annotation(crate = "risingwave_common", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_common.patch"])
 crate.annotation(crate = "risingwave_connector", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_connector.patch"])
 crate.annotation(crate = "risingwave_connector_codec", repositories = ["crates_risingwave"], patches = ["//patches:risingwave_connector_codec.patch"], gen_build_script = "off")  # Build script is only for testing purpose
@@ -89,6 +91,8 @@ crate.annotation(crate = "sea-orm-migration", repositories = ["crates_risingwave
 crate.spec(package = "rstest", version = "0.26.1", default_features = False, features = ["async-timeout"])
 crate.spec(package = "similar-asserts", version = "1.7.0")
 crate.spec(package = "tap", version = "1.0.1")
+crate.spec(package = "tracing", version = "0.1.41")
+crate.spec(package = "tracing-subscriber", version = "0.3.20", features = ["fmt"])
 crate.from_specs()
 use_repo(crate, "crates", "crates_risingwave")
 tar = use_extension("@tar.bzl//tar:extensions.bzl", "toolchains")
