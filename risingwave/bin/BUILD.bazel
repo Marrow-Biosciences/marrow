@@ -14,8 +14,8 @@ DEPS = [
 ENV = {
   # See https://github.com/bazel-contrib/rules_distroless/issues/68
   # BLAS and LAPACK depend on post-install update-alternatives command to symlink shared libraries to top-level
-  # So add their directories to PATH such that they are directly discoverable
-  "PATH": "$PATH:/usr/lib/aarch64-linux-gnu/blas:/usr/lib/aarch64-linux-gnu/lapack"
+  # So add their directories to LD_LIBRARY_PATH such that they are directly discoverable
+  "LD_LIBRARY_PATH": "/usr/lib/aarch64-linux-gnu/blas:/usr/lib/aarch64-linux-gnu/lapack"
 }
 
 platform_transition_filegroup(name = "bookworm_tar", target_platform = "//platforms:container", srcs = ["@bookworm//:flat"])
