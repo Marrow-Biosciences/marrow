@@ -1,7 +1,7 @@
 name: terraform
 on:
   push:
-    paths: ["terraform/**", ".github/workflows/terraform.yaml"]
+    paths: ["terraform/**", ".env.ci", ".github/workflows/terraform.yaml"]
   workflow_dispatch:
 jobs:
   plan:
