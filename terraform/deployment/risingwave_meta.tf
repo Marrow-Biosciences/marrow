@@ -43,6 +43,10 @@ resource "kubernetes_deployment_v1" "risingwave_meta" {
             }
           }
           env {
+            name  = "RUST_LOG"
+            value = "debug"
+          }
+          env {
             name  = "RUST_BACKTRACE"
             value = "full"
           }

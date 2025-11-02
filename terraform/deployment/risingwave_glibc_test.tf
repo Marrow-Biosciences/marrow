@@ -18,7 +18,14 @@ resource "kubernetes_deployment_v1" "risingwave_glibc_test" {
       spec {
         node_selector = {
           "cloud.google.com/compute-class" = "Scale-Out"
+          "cloud.google.com/gke-spot"      = "true"
           "kubernetes.io/arch"             = "arm64"
+        }
+        toleration {
+          key      = "cloud.google.com/gke-spot"
+          operator = "Equal"
+          value    = "true"
+          effect   = "NoSchedule"
         }
         container {
           name  = "risingwave-glibc-test-container"
